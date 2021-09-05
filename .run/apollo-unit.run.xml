@@ -1,0 +1,47 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="apollo-unit" type="JUnit" factoryName="JUnit">
+    <module name="apollo" />
+    <option name="MAIN_CLASS_NAME" value="unit.lab.zhang.apollo.controller.ApolloController" />
+    <option name="METHOD_NAME" value="" />
+    <option name="TEST_OBJECT" value="pattern" />
+    <patterns>
+      <pattern testClass="ApolloControllerTest" />
+      <pattern testClass="InstantBoolTest" />
+      <pattern testClass="InstantIntTest" />
+      <pattern testClass="InstantStrTest" />
+      <pattern testClass="VariableBoolTest" />
+      <pattern testClass="VariableIntTest" />
+      <pattern testClass="VariableStrTest" />
+      <pattern testClass="SortedOperationTest" />
+      <pattern testClass="UnsortedOperationTest" />
+      <pattern testClass="DivisionTest" />
+      <pattern testClass="IndexByTest" />
+      <pattern testClass="EqualToTest" />
+      <pattern testClass="GreaterThanTest" />
+      <pattern testClass="GreaterThanOrEqualToTest" />
+      <pattern testClass="NotEqualToTest" />
+      <pattern testClass="SmallerThanTest" />
+      <pattern testClass="SmallerThanOrEqualToTest" />
+      <pattern testClass="ExternalOperatorTest" />
+      <pattern testClass="LogicalAndTest" />
+      <pattern testClass="LogicalEqualToTest" />
+      <pattern testClass="LogicalNotEqualToTest" />
+      <pattern testClass="LogicalNotTest" />
+      <pattern testClass="LogicalOrTest" />
+      <pattern testClass="IndexReaderTest" />
+      <pattern testClass="ApolloTypeTest" />
+      <pattern testClass="ExpressionRepoTest" />
+      <pattern testClass="PlannedExpressionRepoTest" />
+      <pattern testClass="ExternalOperatorRepoTest" />
+      <pattern testClass="CachedExeServiceTest" />
+      <pattern testClass="ConcurrentCachedExeServiceTest" />
+      <pattern testClass="BasicLexerServiceTest" />
+      <pattern testClass="IteratingOptimServiceTest" />
+      <pattern testClass="ParserServiceTest" />
+      <pattern testClass="PlanServiceTest" />
+    </patterns>
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>

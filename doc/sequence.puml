@@ -1,0 +1,28 @@
+@startuml
+
+actor user
+control app
+control LexerService
+control ParserService
+control OptimService
+control ExeService
+
+==Stage 1: Configuration==
+user -> app ++: save()
+    app -> LexerService ++: tokenOf()
+    return Token
+
+    app -> ParserService ++: valuableOf()
+    return Valuable
+
+    app -> OptimService ++: optimize()
+    return OptimContext
+return
+
+==Stage 2: Calculation==
+user -> app ++: eval()
+    app -> ExeService ++: getValue()
+    return value
+return value
+
+@enduml

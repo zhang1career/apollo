@@ -1,0 +1,583 @@
+<!doctype html>
+<html>
+<head>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <meta charset="utf-8">
+    <title>JUnit Performance Report</title>
+
+</head>
+<body style='font-family:Verdana;'>
+<center>
+    <h1 style='color:#044e9b'>JUnit Performance Report</h1>
+        <hr/>
+        <br/>
+        <table border='1' cellspacing='0' cellpadding='3px' style='border-color:#eee'>
+            <tr>
+                <th style='background-color:#ffffdd; color:#044e9b'>&nbsp;&nbsp;&nbsp;</th>
+                <th style='background-color:#ffffdd; color:#044e9b'>Tests</th>
+            <tr>
+
+             
+                <tr>
+                    <!-- Success: #2b67a4 failure: #d9534f -->
+                    <td style='background-color:#2b67a4;'>&nbsp;</td>
+                    <td><a href='#test_getValue'>test_getValue</td>
+                <tr>
+             
+        </table>
+        <br/>
+        <hr/>
+
+
+        
+        <a name='test_getValue'><h2 style='color:#2b67a4'>test_getValue</h2></a>
+        <table width='970'>
+            <tr>
+                <td>
+                    <!-- ADD scatter Chart here!! -->
+                    <script type="text/javascript">
+                        google.charts.load('current', {'packages':['corechart']});
+                        google.charts.setOnLoadCallback(drawChart);
+                        google.charts.setOnLoadCallback(setCsvExportLink);
+
+                        function drawChart() {
+
+                            var data = google.visualization.arrayToDataTable([
+                                ['Percentile', 'Latency', { role: "tooltip"} ],
+                                
+                                [ 1, 0.0044624, "1% of executions ≤ 0.00ms"],
+                                
+                                [ 2, 0.0052114, "2% of executions ≤ 0.01ms"],
+                                
+                                [ 3, 0.00583, "3% of executions ≤ 0.01ms"],
+                                
+                                [ 4, 0.0063118, "4% of executions ≤ 0.01ms"],
+                                
+                                [ 5, 0.0068475, "5% of executions ≤ 0.01ms"],
+                                
+                                [ 6, 0.007349, "6% of executions ≤ 0.01ms"],
+                                
+                                [ 7, 0.0077909, "7% of executions ≤ 0.01ms"],
+                                
+                                [ 8, 0.008254, "8% of executions ≤ 0.01ms"],
+                                
+                                [ 9, 0.008671, "9% of executions ≤ 0.01ms"],
+                                
+                                [ 10, 0.009053, "10% of executions ≤ 0.01ms"],
+                                
+                                [ 11, 0.009387, "11% of executions ≤ 0.01ms"],
+                                
+                                [ 12, 0.009680401, "12% of executions ≤ 0.01ms"],
+                                
+                                [ 13, 0.0099481, "13% of executions ≤ 0.01ms"],
+                                
+                                [ 14, 0.010162, "14% of executions ≤ 0.01ms"],
+                                
+                                [ 15, 0.010355, "15% of executions ≤ 0.01ms"],
+                                
+                                [ 16, 0.010522, "16% of executions ≤ 0.01ms"],
+                                
+                                [ 17, 0.010678, "17% of executions ≤ 0.01ms"],
+                                
+                                [ 18, 0.010839, "18% of executions ≤ 0.01ms"],
+                                
+                                [ 19, 0.010994, "19% of executions ≤ 0.01ms"],
+                                
+                                [ 20, 0.011151, "20% of executions ≤ 0.01ms"],
+                                
+                                [ 21, 0.011314, "21% of executions ≤ 0.01ms"],
+                                
+                                [ 22, 0.01148, "22% of executions ≤ 0.01ms"],
+                                
+                                [ 23, 0.011669, "23% of executions ≤ 0.01ms"],
+                                
+                                [ 24, 0.01186, "24% of executions ≤ 0.01ms"],
+                                
+                                [ 25, 0.0120635, "25% of executions ≤ 0.01ms"],
+                                
+                                [ 26, 0.012256, "26% of executions ≤ 0.01ms"],
+                                
+                                [ 27, 0.012439, "27% of executions ≤ 0.01ms"],
+                                
+                                [ 28, 0.01262, "28% of executions ≤ 0.01ms"],
+                                
+                                [ 29, 0.0128, "29% of executions ≤ 0.01ms"],
+                                
+                                [ 30, 0.012978, "30% of executions ≤ 0.01ms"],
+                                
+                                [ 31, 0.013174701, "31% of executions ≤ 0.01ms"],
+                                
+                                [ 32, 0.013379, "32% of executions ≤ 0.01ms"],
+                                
+                                [ 33, 0.013608, "33% of executions ≤ 0.01ms"],
+                                
+                                [ 34, 0.013861, "34% of executions ≤ 0.01ms"],
+                                
+                                [ 35, 0.014142, "35% of executions ≤ 0.01ms"],
+                                
+                                [ 36, 0.014425, "36% of executions ≤ 0.01ms"],
+                                
+                                [ 37, 0.0147398, "37% of executions ≤ 0.01ms"],
+                                
+                                [ 38, 0.015073, "38% of executions ≤ 0.02ms"],
+                                
+                                [ 39, 0.015417, "39% of executions ≤ 0.02ms"],
+                                
+                                [ 40, 0.015768, "40% of executions ≤ 0.02ms"],
+                                
+                                [ 41, 0.0161287, "41% of executions ≤ 0.02ms"],
+                                
+                                [ 42, 0.016462, "42% of executions ≤ 0.02ms"],
+                                
+                                [ 43, 0.016875, "43% of executions ≤ 0.02ms"],
+                                
+                                [ 44, 0.017283, "44% of executions ≤ 0.02ms"],
+                                
+                                [ 45, 0.017722, "45% of executions ≤ 0.02ms"],
+                                
+                                [ 46, 0.018216, "46% of executions ≤ 0.02ms"],
+                                
+                                [ 47, 0.018774, "47% of executions ≤ 0.02ms"],
+                                
+                                [ 48, 0.0193616, "48% of executions ≤ 0.02ms"],
+                                
+                                [ 49, 0.0199486, "49% of executions ≤ 0.02ms"],
+                                
+                                [ 50, 0.02034, "50% of executions ≤ 0.02ms"],
+                                
+                                [ 51, 0.020574, "51% of executions ≤ 0.02ms"],
+                                
+                                [ 52, 0.0207514, "52% of executions ≤ 0.02ms"],
+                                
+                                [ 53, 0.020937, "53% of executions ≤ 0.02ms"],
+                                
+                                [ 54, 0.021135, "54% of executions ≤ 0.02ms"],
+                                
+                                [ 55, 0.02133, "55% of executions ≤ 0.02ms"],
+                                
+                                [ 56, 0.021519, "56% of executions ≤ 0.02ms"],
+                                
+                                [ 57, 0.021694, "57% of executions ≤ 0.02ms"],
+                                
+                                [ 58, 0.021862, "58% of executions ≤ 0.02ms"],
+                                
+                                [ 59, 0.022031, "59% of executions ≤ 0.02ms"],
+                                
+                                [ 60, 0.022186, "60% of executions ≤ 0.02ms"],
+                                
+                                [ 61, 0.022347, "61% of executions ≤ 0.02ms"],
+                                
+                                [ 62, 0.02251, "62% of executions ≤ 0.02ms"],
+                                
+                                [ 63, 0.0226761, "63% of executions ≤ 0.02ms"],
+                                
+                                [ 64, 0.022832, "64% of executions ≤ 0.02ms"],
+                                
+                                [ 65, 0.0229905, "65% of executions ≤ 0.02ms"],
+                                
+                                [ 66, 0.023169199, "66% of executions ≤ 0.02ms"],
+                                
+                                [ 67, 0.023333, "67% of executions ≤ 0.02ms"],
+                                
+                                [ 68, 0.023503, "68% of executions ≤ 0.02ms"],
+                                
+                                [ 69, 0.023680301, "69% of executions ≤ 0.02ms"],
+                                
+                                [ 70, 0.023876, "70% of executions ≤ 0.02ms"],
+                                
+                                [ 71, 0.024104, "71% of executions ≤ 0.02ms"],
+                                
+                                [ 72, 0.024361, "72% of executions ≤ 0.02ms"],
+                                
+                                [ 73, 0.024683, "73% of executions ≤ 0.02ms"],
+                                
+                                [ 74, 0.02507, "74% of executions ≤ 0.03ms"],
+                                
+                                [ 75, 0.025472, "75% of executions ≤ 0.03ms"],
+                                
+                                [ 76, 0.025961, "76% of executions ≤ 0.03ms"],
+                                
+                                [ 77, 0.026527, "77% of executions ≤ 0.03ms"],
+                                
+                                [ 78, 0.027102, "78% of executions ≤ 0.03ms"],
+                                
+                                [ 79, 0.027635, "79% of executions ≤ 0.03ms"],
+                                
+                                [ 80, 0.028145, "80% of executions ≤ 0.03ms"],
+                                
+                                [ 81, 0.028497, "81% of executions ≤ 0.03ms"],
+                                
+                                [ 82, 0.028783, "82% of executions ≤ 0.03ms"],
+                                
+                                [ 83, 0.029017, "83% of executions ≤ 0.03ms"],
+                                
+                                [ 84, 0.029268, "84% of executions ≤ 0.03ms"],
+                                
+                                [ 85, 0.029504, "85% of executions ≤ 0.03ms"],
+                                
+                                [ 86, 0.029735, "86% of executions ≤ 0.03ms"],
+                                
+                                [ 87, 0.029953, "87% of executions ≤ 0.03ms"],
+                                
+                                [ 88, 0.030139, "88% of executions ≤ 0.03ms"],
+                                
+                                [ 89, 0.0303093, "89% of executions ≤ 0.03ms"],
+                                
+                                [ 90, 0.030495, "90% of executions ≤ 0.03ms"],
+                                
+                                [ 91, 0.0306657, "91% of executions ≤ 0.03ms"],
+                                
+                                [ 92, 0.030829, "92% of executions ≤ 0.03ms"],
+                                
+                                [ 93, 0.031025, "93% of executions ≤ 0.03ms"],
+                                
+                                [ 94, 0.031272, "94% of executions ≤ 0.03ms"],
+                                
+                                [ 95, 0.0316305, "95% of executions ≤ 0.03ms"],
+                                
+                                [ 96, 0.0322432, "96% of executions ≤ 0.03ms"],
+                                
+                                [ 97, 0.034241, "97% of executions ≤ 0.03ms"],
+                                
+                                [ 98, 0.0382028, "98% of executions ≤ 0.04ms"],
+                                
+                                [ 99, 0.0449802, "99% of executions ≤ 0.04ms"],
+                                
+                            ]);
+
+                            var options = {
+                                title: 'Latency percentile Distribution',
+                                hAxis: {
+                                    title: 'Percentile',
+                                    minValue: 0,
+                                    maxValue: 100,
+                                    viewWindow: {
+                                        min: 0,
+                                        max: 100
+                                    }
+                                },
+                                vAxis: {title: 'Latency', minValue: 0, maxValue: 15},
+                                legend: 'none',
+                                lineWidth: 1,
+                                pointSize: 7,
+                                dataOpacity: 0.5
+                            };
+
+                            var chart = new google.visualization.ScatterChart(document.getElementById('test_getValue'));
+
+                            chart.draw(data, options);
+                        }
+
+                        function setCsvExportLink() {
+                            var csvData = google.visualization.arrayToDataTable([
+                                ['Percentile', 'Latency'],
+                                
+                                [ 1, 0.0044624 ],
+                                
+                                [ 2, 0.0052114 ],
+                                
+                                [ 3, 0.00583 ],
+                                
+                                [ 4, 0.0063118 ],
+                                
+                                [ 5, 0.0068475 ],
+                                
+                                [ 6, 0.007349 ],
+                                
+                                [ 7, 0.0077909 ],
+                                
+                                [ 8, 0.008254 ],
+                                
+                                [ 9, 0.008671 ],
+                                
+                                [ 10, 0.009053 ],
+                                
+                                [ 11, 0.009387 ],
+                                
+                                [ 12, 0.009680401 ],
+                                
+                                [ 13, 0.0099481 ],
+                                
+                                [ 14, 0.010162 ],
+                                
+                                [ 15, 0.010355 ],
+                                
+                                [ 16, 0.010522 ],
+                                
+                                [ 17, 0.010678 ],
+                                
+                                [ 18, 0.010839 ],
+                                
+                                [ 19, 0.010994 ],
+                                
+                                [ 20, 0.011151 ],
+                                
+                                [ 21, 0.011314 ],
+                                
+                                [ 22, 0.01148 ],
+                                
+                                [ 23, 0.011669 ],
+                                
+                                [ 24, 0.01186 ],
+                                
+                                [ 25, 0.0120635 ],
+                                
+                                [ 26, 0.012256 ],
+                                
+                                [ 27, 0.012439 ],
+                                
+                                [ 28, 0.01262 ],
+                                
+                                [ 29, 0.0128 ],
+                                
+                                [ 30, 0.012978 ],
+                                
+                                [ 31, 0.013174701 ],
+                                
+                                [ 32, 0.013379 ],
+                                
+                                [ 33, 0.013608 ],
+                                
+                                [ 34, 0.013861 ],
+                                
+                                [ 35, 0.014142 ],
+                                
+                                [ 36, 0.014425 ],
+                                
+                                [ 37, 0.0147398 ],
+                                
+                                [ 38, 0.015073 ],
+                                
+                                [ 39, 0.015417 ],
+                                
+                                [ 40, 0.015768 ],
+                                
+                                [ 41, 0.0161287 ],
+                                
+                                [ 42, 0.016462 ],
+                                
+                                [ 43, 0.016875 ],
+                                
+                                [ 44, 0.017283 ],
+                                
+                                [ 45, 0.017722 ],
+                                
+                                [ 46, 0.018216 ],
+                                
+                                [ 47, 0.018774 ],
+                                
+                                [ 48, 0.0193616 ],
+                                
+                                [ 49, 0.0199486 ],
+                                
+                                [ 50, 0.02034 ],
+                                
+                                [ 51, 0.020574 ],
+                                
+                                [ 52, 0.0207514 ],
+                                
+                                [ 53, 0.020937 ],
+                                
+                                [ 54, 0.021135 ],
+                                
+                                [ 55, 0.02133 ],
+                                
+                                [ 56, 0.021519 ],
+                                
+                                [ 57, 0.021694 ],
+                                
+                                [ 58, 0.021862 ],
+                                
+                                [ 59, 0.022031 ],
+                                
+                                [ 60, 0.022186 ],
+                                
+                                [ 61, 0.022347 ],
+                                
+                                [ 62, 0.02251 ],
+                                
+                                [ 63, 0.0226761 ],
+                                
+                                [ 64, 0.022832 ],
+                                
+                                [ 65, 0.0229905 ],
+                                
+                                [ 66, 0.023169199 ],
+                                
+                                [ 67, 0.023333 ],
+                                
+                                [ 68, 0.023503 ],
+                                
+                                [ 69, 0.023680301 ],
+                                
+                                [ 70, 0.023876 ],
+                                
+                                [ 71, 0.024104 ],
+                                
+                                [ 72, 0.024361 ],
+                                
+                                [ 73, 0.024683 ],
+                                
+                                [ 74, 0.02507 ],
+                                
+                                [ 75, 0.025472 ],
+                                
+                                [ 76, 0.025961 ],
+                                
+                                [ 77, 0.026527 ],
+                                
+                                [ 78, 0.027102 ],
+                                
+                                [ 79, 0.027635 ],
+                                
+                                [ 80, 0.028145 ],
+                                
+                                [ 81, 0.028497 ],
+                                
+                                [ 82, 0.028783 ],
+                                
+                                [ 83, 0.029017 ],
+                                
+                                [ 84, 0.029268 ],
+                                
+                                [ 85, 0.029504 ],
+                                
+                                [ 86, 0.029735 ],
+                                
+                                [ 87, 0.029953 ],
+                                
+                                [ 88, 0.030139 ],
+                                
+                                [ 89, 0.0303093 ],
+                                
+                                [ 90, 0.030495 ],
+                                
+                                [ 91, 0.0306657 ],
+                                
+                                [ 92, 0.030829 ],
+                                
+                                [ 93, 0.031025 ],
+                                
+                                [ 94, 0.031272 ],
+                                
+                                [ 95, 0.0316305 ],
+                                
+                                [ 96, 0.0322432 ],
+                                
+                                [ 97, 0.034241 ],
+                                
+                                [ 98, 0.0382028 ],
+                                
+                                [ 99, 0.0449802 ],
+                                
+                                [ 100, 4.642636 ],
+                                
+                            ]);
+                            var csvFormattedDataTable = google.visualization.dataTableToCsv(csvData);
+                            var encodedUri = 'data:application/csv;charset=utf-8,' + encodeURIComponent(csvFormattedDataTable);
+                            var link = document.getElementById('Export-test_getValue')
+                            link.href=encodedUri;
+                            link.download = 'test_getValue.csv';
+                            link.target = '_blank';
+                        }
+
+                    </script>
+                    <div id="test_getValue" style="width: 600px; height: 400px;"></div>
+                    <a id="Export-test_getValue" href="#" style="margin-left: 230px;">Download as csv</a>
+                </td>
+                <td>
+                    <table style='font-family:sans-serif;'>
+                        <tr><th>Started at:</th><td colspan='2'><b>2021-07-22 11:36:11</b></td></tr>
+                        <tr>
+                            <th align='right' valign='top'>Invocations:</th>
+                            <td align='right'>85,369</td>
+                            <td align='right'></td>
+                        </tr>
+                        <tr>
+                            <th align='right' valign='top'>- Success:</th>
+                            <td align='right'>85,369</td>
+                            <td align='right'></td>
+                        </tr>
+                        <tr>
+                            
+                            <th align='right' valign='top'><b style='color:#2b67a4'>- Errors:</b></th>
+                            <td align='right'><b style='color:#2b67a4'>0</b></td>
+                            <td align='right'><b style='color:#2b67a4;'>0.00%</b></td>
+                        </tr>
+                        <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+                        <tr>
+                            <th align='right' valign='top'>Thread Count:</th>
+                            <td align='right'>10</td>
+                            <td align='right'></td>
+                        </tr>
+                        <tr>
+                            <th align='right' valign='top'>Warm up:</th>
+                            <td align='right'>5,000 ms</td>
+                            <td align='right'></td>
+                        </tr>
+                        <tr>
+                            <th align='right' valign='top'>Ramp up:</th>
+                            <td align='right'>1,000 ms</td>
+                            <td align='right'></td>
+                        </tr>
+                        <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+                        <tr valign='top'>
+                            <th>&nbsp;</th>
+                            <th>Measured<br/>(system)</th>
+                            <th>Required</th>
+                        </tr>
+                        <tr>
+                            <th align='right' valign='top'>Execution time:</th>
+                            <td align='right'>15s</td>
+                            <td align='right'></td>
+                        </tr>
+                        <tr>
+                            
+                            <th align='right' valign='top'><b style='color:#2b67a4'>Throughput:</b></th>
+                            <td align='right'><b style='color:#2b67a4;'>8,536 / s</b></td>
+                            <td align='right'><b style='color:#2b67a4;'>4,000 / s</b></td>
+                        </tr>
+                        <tr>
+                            
+                            <th align='right' valign='top'><b style='color:#2b67a4'>Min latency:</b></th>
+                            <td align='right'><b style='color:#2b67a4'>0.00 ms</b></td>
+                            
+                            <td align='right'><b style='color:#2b67a4'>N/A ms</b></td>
+                        </tr>
+                        <tr>
+                            
+                            <th align='right' valign='top'><b style='color:#2b67a4'>Average latency:</b></th>
+                            <td align='right'><b style='color:#2b67a4'>0.02 ms</b></td>
+                            
+                            <td align='right'><b style='color:#2b67a4'>N/A ms</b></td>
+                        </tr>
+
+                        
+                        <tr>
+                             <!-- HACK to get parameter passed to function -->
+                            
+                            <th align='right' valign='top'><b style='color:#2b67a4'>90:</b></th>
+                            <td align='right'><b style='color:#2b67a4;'>0.03 ms</b></td>
+                            <td align='right'><b style='color:#2b67a4'>7.00 ms</b></td>
+                            
+                        </tr>
+                        
+                        <tr>
+                            
+                            <th align='right' valign='top'><b style='color:#2b67a4'>Max latency:</b></th>
+                            <td align='right'><b style='color:#2b67a4'>4.64 ms</b></td>
+                            
+                            <td align='right'><b style='color:#2b67a4'>N/A ms</b></td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+        <br/>
+        <br/><br/><br/>
+        
+        <hr/>
+        <div style='color:#044e9b;'>Report created by <a href='https://github.com/noconnor/JUnitPerf'>JunitPerf</a> </div>
+</center>
+</body>
+</html>
