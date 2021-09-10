@@ -2,6 +2,7 @@ package lab.zhang.apollo.service;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.serializer.SerializerFeature;
 import lab.zhang.apollo.exception.TokenizationException;
 import lab.zhang.apollo.pojo.ApolloType;
 import lab.zhang.apollo.pojo.Token;
@@ -75,7 +76,14 @@ abstract public class LexerService {
         if (token == null) {
             return null;
         }
-        return toJSONString(token, Token.getFilter());
+        return toJSONString(token, Token.getFilter(), SerializerFeature.WriteMapNullValue);
+    }
+
+    public String jsonOf(Token[] tokens) {
+        if (tokens == null) {
+            return null;
+        }
+        return toJSONString(tokens, Token.getFilter(), SerializerFeature.WriteMapNullValue);
     }
 
     @NotNull

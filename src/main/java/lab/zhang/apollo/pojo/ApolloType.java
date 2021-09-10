@@ -663,6 +663,31 @@ public enum ApolloType {
 
 
     /**
+     * fresh operation
+     */
+    FRESH_OPERATION {
+        @Override
+        public OpType getOpType() {
+            return OpType.OPERATION;
+        }
+
+        @Override
+        public boolean checkCard(int num) {
+            return Cardinality.NO_CHECK.checkCard(num);
+        }
+
+        @Override
+        public Set<ApolloType> getPairableOperandTypes() {
+            return new HashSet<>(APOLLO_TYPE_LIST_ALL);
+        }
+
+        @Override
+        public Valuable<Object> valuableOf(StorableOperator storableOperator, long id, Object value) {
+            return null;
+        }
+    },
+
+    /**
      * planned operation
      */
     PLANNED_OPERATION {
@@ -711,7 +736,7 @@ public enum ApolloType {
             INSTANT_STR, VARIABLE_STR,
             INSTANT_OBJECT, VARIABLE_OBJECT,
             EXTERNAL_OPERATOR,
-            PLANNED_OPERATION);
+            FRESH_OPERATION, PLANNED_OPERATION);
 
 
     static Map<Integer, Integer> uuidMap;

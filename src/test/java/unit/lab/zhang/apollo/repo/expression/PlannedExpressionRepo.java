@@ -54,8 +54,8 @@ public class PlannedExpressionRepo extends BaseRepo implements StorableExpressio
             return null;
         }
 
-        Map<Long, PlannedExpressionEntity> plannedOperationEntityMap = indexById(plannedExpressionEntityList);
-        return columnOf(plannedOperationEntityMap, p -> lexerService.tokenOf(p.getExpression()));
+        Map<Long, PlannedExpressionEntity> plannedExpressionEntityMap = indexById(plannedExpressionEntityList);
+        return columnOf(plannedExpressionEntityMap, p -> lexerService.tokenOf(p.getExpression()));
     }
 
     public long create(long operationId, Token node) {

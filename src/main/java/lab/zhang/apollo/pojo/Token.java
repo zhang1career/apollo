@@ -42,13 +42,18 @@ public class Token {
     public Token() {
     }
 
-    public Token(String name, ApolloType type, Object value) {
+    public Token(String name, ApolloType type, long id, Object value) {
         if (type == null) {
             throw new TokenizationException("The type does not exist");
         }
         this.name = name;
         this.type = type;
+        this.id = id;
         this.value = value;
+    }
+
+    public Token(String name, ApolloType type, Object value) {
+        this(name, type, 0, value);
     }
 
     public void setType(ApolloType type) {

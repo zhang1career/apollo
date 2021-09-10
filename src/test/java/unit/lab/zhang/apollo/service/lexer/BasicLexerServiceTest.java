@@ -38,7 +38,7 @@ public class BasicLexerServiceTest {
 
     @Test
     public void test_jsonFrom_with_emptyCond() {
-        String outputCond = target.jsonOf(null);
+        String outputCond = target.jsonOf((Token) null);
         assertNull(outputCond);
     }
 
