@@ -5,10 +5,7 @@ import lab.zhang.apollo.pojo.operands.instants.InstantBool;
 import lab.zhang.apollo.pojo.operands.instants.InstantInt;
 import lab.zhang.apollo.pojo.operands.instants.InstantObject;
 import lab.zhang.apollo.pojo.operands.instants.InstantStr;
-import lab.zhang.apollo.pojo.operands.variables.VariableBool;
-import lab.zhang.apollo.pojo.operands.variables.VariableInt;
-import lab.zhang.apollo.pojo.operands.variables.VariableObject;
-import lab.zhang.apollo.pojo.operands.variables.VariableStr;
+import lab.zhang.apollo.pojo.operands.variables.*;
 import lab.zhang.apollo.pojo.operations.SortedOperation;
 import lab.zhang.apollo.pojo.operations.UnsortedOperation;
 import lab.zhang.apollo.pojo.operators.arithmetics.Addition;
@@ -182,12 +179,13 @@ public enum ApolloType {
     VARIABLE_LONG {
         @Override
         public Set<ApolloType> getPairableOperandTypes() {
-            return new HashSet<>(Collections.emptyList());
+            return new HashSet<>(APOLLO_TYPE_LIST_LONG);
         }
 
         @Override
         public Valuable<?> valuableOf(StorableOperator storableOperator, long id, Object value) {
-            return null;
+            return VariableLong.of(CastUtil.from(value));
+
         }
     },
     VARIABLE_DOUBLE {
@@ -722,6 +720,9 @@ public enum ApolloType {
             INSTANT_INT, VARIABLE_INT,
             ADDITION_INT, SUBTRACTION_INT, MULTIPLICATION_INT, DIVISION_INT);
 
+    static private final List<ApolloType> APOLLO_TYPE_LIST_LONG = Arrays.asList(
+            INSTANT_LONG, VARIABLE_LONG);
+
     static private final List<ApolloType> APOLLO_TYPE_LIST_NUM = APOLLO_TYPE_LIST_INT;
 
     static private final List<ApolloType> APOLLO_TYPE_LIST_STR = Arrays.asList(
@@ -744,12 +745,13 @@ public enum ApolloType {
 
     static {
         uuidMap = new HashMap<>();
-        uuidMap.put(INSTANT_BOOL.id, 0x6914B8C1);
-        uuidMap.put(INSTANT_INT.id, 0x35AA1F69);
-        uuidMap.put(INSTANT_STR.id, 0x723C7BAB);
-        uuidMap.put(VARIABLE_BOOL.id, 0x1C3BFC50);
-        uuidMap.put(VARIABLE_INT.id, 0x41165CAC);
-        uuidMap.put(VARIABLE_STR.id, 0x66A27177);
+        uuidMap.put(INSTANT_BOOL.id,    0x6914B8C1);
+        uuidMap.put(INSTANT_INT.id,     0x35AA1F69);
+        uuidMap.put(INSTANT_STR.id,     0x723C7BAB);
+        uuidMap.put(VARIABLE_BOOL.id,   0x1C3BFC50);
+        uuidMap.put(VARIABLE_INT.id,    0x41165CAC);
+        uuidMap.put(VARIABLE_LONG.id,   0x6AD58E94);
+        uuidMap.put(VARIABLE_STR.id,    0x66A27177);
 
         uuidMap.put(ADDITION_INT.id, 0x46EA16A4);
         uuidMap.put(SUBTRACTION_INT.id, 0x07027B67);

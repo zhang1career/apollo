@@ -24,7 +24,7 @@ public class VariableInt extends Variable<Integer> {
     @Override
     public int compareTo(@NotNull Valuable<Integer> o) {
         if (!(o instanceof InstantInt) && !(o instanceof VariableInt)) {
-            throw new IllegalArgumentException("An operand is not comparable, an instance of InstantInt / IntVariableis is needed");
+            throw new IllegalArgumentException("An operand is not comparable, an instance of InstantInt / VariableInt is needed");
         }
 
         if (o instanceof InstantInt) {

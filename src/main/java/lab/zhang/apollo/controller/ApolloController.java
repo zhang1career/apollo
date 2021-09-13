@@ -29,8 +29,17 @@ public class ApolloController {
     }
 
     public Object eval(String inputCond, ParamContext paramContext) {
+        Token plannedToken = lexerService.tokenOf(inputCond);
+        return compileAndRun(plannedToken, paramContext);
+    }
+
+    public Object evalFresh(String inputCond, ParamContext paramContext) {
         Token freshToken = lexerService.tokenOf(inputCond);
         Token plannedToken = planService.plan(freshToken);
+        return compileAndRun(plannedToken, paramContext);
+    }
+
+    private Object compileAndRun(Token plannedToken, ParamContext paramContext) {
         Operation<Integer, Integer> parsed = CastUtil.from(parserService.valuableOf(plannedToken));
         OptimContext optimContext = optimService.optimize(parsed);
 //        ExeService<Integer> exe = ConcurrentCachedExeService.of(optimContext);

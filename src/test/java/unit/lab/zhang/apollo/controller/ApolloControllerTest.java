@@ -27,6 +27,6 @@ public class ApolloControllerTest {
                 "{\"id\":0,\"name\":\"+\",\"type\":%d,\"value\":[{\"id\":0,\"name\":\"2\",\"type\":1,\"value\":2},{\"id\":0,\"name\":\"1\",\"type\":1,\"value\":1}]}",
                 ApolloType.ADDITION_INT.getId());
 
-        assertEquals(3, target.eval(inputCond, paramContext));
+        assertEquals(3, target.evalFresh(inputCond, paramContext));
     }
 }
