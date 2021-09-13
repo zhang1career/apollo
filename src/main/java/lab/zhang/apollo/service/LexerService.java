@@ -6,6 +6,7 @@ import com.alibaba.fastjson.serializer.SerializerFeature;
 import lab.zhang.apollo.exception.TokenizationException;
 import lab.zhang.apollo.pojo.ApolloType;
 import lab.zhang.apollo.pojo.Token;
+import lab.zhang.apollo.util.StrUtil;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
@@ -17,6 +18,13 @@ import static com.alibaba.fastjson.JSON.toJSONString;
  * @author zhangrj
  */
 abstract public class LexerService {
+
+    public List<Token> tokenListOf(String cond) {
+        if (StrUtil.isNill(cond)) {
+            return null;
+        }
+        return JSON.parseArray(cond, Token.class);
+    }
 
     public Token tokenOf(String cond) {
         if (cond == null || cond.length() <= 0) {

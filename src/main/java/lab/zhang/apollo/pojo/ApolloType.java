@@ -663,9 +663,9 @@ public enum ApolloType {
 
 
     /**
-     * fresh operation
+     * origin operation
      */
-    FRESH_OPERATION {
+    ORIGINAL_OPERATION {
         @Override
         public OpType getOpType() {
             return OpType.OPERATION;
@@ -729,6 +729,7 @@ public enum ApolloType {
 
     static private final List<ApolloType> APOLLO_TYPE_LIST_ALL = Arrays.asList(
             INSTANT_BOOL, VARIABLE_BOOL,
+            INSTANT_LONG, VARIABLE_LONG,
             EQUAL_TO, NOT_EQUAL_TO, SMALLER_THAN, SMALLER_THAN_OR_EQUAL_TO, GREATER_THAN, GREATER_THAN_OR_EQUAL_TO,
             LOGICAL_EQUAL_TO, LOGICAL_NOT_EQUAL_TO, LOGICAL_AND, LOGICAL_OR, LOGICAL_NOT,
             INSTANT_INT, VARIABLE_INT,
@@ -736,7 +737,7 @@ public enum ApolloType {
             INSTANT_STR, VARIABLE_STR,
             INSTANT_OBJECT, VARIABLE_OBJECT,
             EXTERNAL_OPERATOR,
-            FRESH_OPERATION, PLANNED_OPERATION);
+            ORIGINAL_OPERATION, PLANNED_OPERATION);
 
 
     static Map<Integer, Integer> uuidMap;

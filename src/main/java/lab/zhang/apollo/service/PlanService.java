@@ -25,10 +25,15 @@ public class PlanService {
     }
 
     public Token plan(@NotNull Token root) {
-        return dfs(root);
+        Token token = dfs(root);
+        if (token.getType() == ApolloType.ORIGINAL_OPERATION) {
+            token.setType(ApolloType.PLANNED_OPERATION);
+        }
+        return token;
     }
 
     private Token dfs(@NotNull Token token) {
+        // leaf node
         if (token.getValue() == null || !(token.getValue() instanceof ArrayList) ) {
             if (token.getType() != ApolloType.PLANNED_OPERATION) {
                 return token;
@@ -40,13 +45,13 @@ public class PlanService {
             return lexerService.tokenOf(expression);
         }
 
-        List<Token> chileTokenList = CastUtil.from(token.getValue());
-        if (chileTokenList == null || chileTokenList.size() <= 0) {
+        List<Token> childTokenList = CastUtil.from(token.getValue());
+        if (childTokenList == null || childTokenList.size() <= 0) {
             return token;
         }
 
-        for (int i = 0; i < chileTokenList.size(); i++) {
-            chileTokenList.set(i, dfs(chileTokenList.get(i)));
+        for (int i = 0; i < childTokenList.size(); i++) {
+            childTokenList.set(i, dfs(childTokenList.get(i)));
         }
 
         return token;
