@@ -25,17 +25,13 @@ public class PlanService {
     }
 
     public Token plan(@NotNull Token root) {
-        Token token = dfs(root);
-        if (token.getType() == ApolloType.ORIGINAL_OPERATION) {
-            token.setType(ApolloType.PLANNED_OPERATION);
-        }
-        return token;
+        return dfs(root);
     }
 
     private Token dfs(@NotNull Token token) {
         // leaf node
         if (token.getValue() == null || !(token.getValue() instanceof ArrayList) ) {
-            if (token.getType() != ApolloType.PLANNED_OPERATION) {
+            if (token.getType() != ApolloType.ORIGINAL_OPERATION) {
                 return token;
             }
             String expression = this.storableExpression.getExpression(token.getId());

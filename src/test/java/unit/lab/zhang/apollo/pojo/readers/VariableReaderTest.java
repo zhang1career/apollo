@@ -2,7 +2,7 @@ package unit.lab.zhang.apollo.pojo.readers;
 
 import lab.zhang.apollo.pojo.ParamContext;
 import lab.zhang.apollo.pojo.operands.variables.VariableInt;
-import lab.zhang.apollo.pojo.readers.IndexReader;
+import lab.zhang.apollo.pojo.readers.VariableReader;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -10,8 +10,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public class IndexReaderTest {
-    private IndexReader<Integer> target;
+public class VariableReaderTest {
+    private VariableReader<Integer> target;
 
     private ParamContext paramContext;
     private VariableInt amount;
@@ -19,7 +19,7 @@ public class IndexReaderTest {
 
     @Before
     public void setUp() {
-        target = IndexReader.of();
+        target = VariableReader.of();
 
         paramContext = new ParamContext();
 

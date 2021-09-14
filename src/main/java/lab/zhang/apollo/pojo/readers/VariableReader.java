@@ -8,21 +8,21 @@ import org.jetbrains.annotations.NotNull;
 /**
  * @author zhangrj
  */
-public class IndexReader<V> implements Readable<V, String> {
+public class VariableReader<V> implements Readable<V, String> {
     @NotNull
     @Contract(value = " -> new", pure = true)
-    static public <V> IndexReader<V> of() {
-        return new IndexReader<>();
+    static public <V> VariableReader<V> of() {
+        return new VariableReader<>();
     }
 
-    private IndexReader() {
+    private VariableReader() {
     }
 
     @Override
     public V read(String name, @NotNull ParamContext paramContext) {
         V ret = paramContext.getValue(name);
         if (ret == null) {
-            throw new RuntimeException("Cannot find the index from ParamContext");
+            throw new RuntimeException("Cannot find the variable from ParamContext, name=" + name);
         }
         return ret;
     }

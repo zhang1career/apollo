@@ -684,31 +684,6 @@ public enum ApolloType {
             return null;
         }
     },
-
-    /**
-     * planned operation
-     */
-    PLANNED_OPERATION {
-        @Override
-        public OpType getOpType() {
-            return OpType.OPERATION;
-        }
-
-        @Override
-        public boolean checkCard(int num) {
-            return Cardinality.NO_CHECK.checkCard(num);
-        }
-
-        @Override
-        public Set<ApolloType> getPairableOperandTypes() {
-            return new HashSet<>(APOLLO_TYPE_LIST_ALL);
-        }
-
-        @Override
-        public Valuable<Object> valuableOf(StorableOperator storableOperator, long id, Object value) {
-            return null;
-        }
-    },
     ;
 
     static private final List<ApolloType> APOLLO_TYPE_LIST_BOOL = Arrays.asList(
@@ -730,15 +705,15 @@ public enum ApolloType {
 
     static private final List<ApolloType> APOLLO_TYPE_LIST_ALL = Arrays.asList(
             INSTANT_BOOL, VARIABLE_BOOL,
-            INSTANT_LONG, VARIABLE_LONG,
-            EQUAL_TO, NOT_EQUAL_TO, SMALLER_THAN, SMALLER_THAN_OR_EQUAL_TO, GREATER_THAN, GREATER_THAN_OR_EQUAL_TO,
-            LOGICAL_EQUAL_TO, LOGICAL_NOT_EQUAL_TO, LOGICAL_AND, LOGICAL_OR, LOGICAL_NOT,
             INSTANT_INT, VARIABLE_INT,
-            ADDITION_INT, SUBTRACTION_INT, MULTIPLICATION_INT, DIVISION_INT,
+            INSTANT_LONG, VARIABLE_LONG,
             INSTANT_STR, VARIABLE_STR,
             INSTANT_OBJECT, VARIABLE_OBJECT,
+            EQUAL_TO, NOT_EQUAL_TO, SMALLER_THAN, SMALLER_THAN_OR_EQUAL_TO, GREATER_THAN, GREATER_THAN_OR_EQUAL_TO,
+            LOGICAL_EQUAL_TO, LOGICAL_NOT_EQUAL_TO, LOGICAL_AND, LOGICAL_OR, LOGICAL_NOT,
+            ADDITION_INT, SUBTRACTION_INT, MULTIPLICATION_INT, DIVISION_INT,
             EXTERNAL_OPERATOR,
-            ORIGINAL_OPERATION, PLANNED_OPERATION);
+            ORIGINAL_OPERATION);
 
 
     static Map<Integer, Integer> uuidMap;
