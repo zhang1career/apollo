@@ -7,7 +7,7 @@ import lab.zhang.apollo.pojo.OptimContext;
 /**
  * @author zhangrj
  */
-abstract public class ExeService<R extends Comparable<R>> implements Valuable<R> {
+abstract public class ExeService<R> implements Valuable<R> {
     protected R result;
 
     protected final OptimContext optimContext;

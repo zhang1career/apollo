@@ -1,10 +1,8 @@
 package lab.zhang.apollo.pojo;
 
 import lab.zhang.apollo.bo.Valuable;
-import lab.zhang.apollo.pojo.operands.instants.InstantBool;
-import lab.zhang.apollo.pojo.operands.instants.InstantInt;
-import lab.zhang.apollo.pojo.operands.instants.InstantObject;
-import lab.zhang.apollo.pojo.operands.instants.InstantStr;
+import lab.zhang.apollo.exception.RunnableCodeException;
+import lab.zhang.apollo.pojo.operands.instants.*;
 import lab.zhang.apollo.pojo.operands.variables.*;
 import lab.zhang.apollo.pojo.operations.SortedOperation;
 import lab.zhang.apollo.pojo.operations.UnsortedOperation;
@@ -77,17 +75,6 @@ public enum ApolloType {
             return null;
         }
     },
-    INSTANT_LOCATION {
-        @Override
-        public Set<ApolloType> getPairableOperandTypes() {
-            return new HashSet<>(Collections.emptyList());
-        }
-
-        @Override
-        public Valuable<?> valuableOf(StorableOperator storableOperator, long id, Object value) {
-            return null;
-        }
-    },
     INSTANT_CHAR {
         @Override
         public Set<ApolloType> getPairableOperandTypes() {
@@ -125,15 +112,27 @@ public enum ApolloType {
             return null;
         }
     },
-    INSTANT_DUMMY_1 {
+    INSTANT_ARRAY {
         @Override
         public Set<ApolloType> getPairableOperandTypes() {
-            return new HashSet<>(Collections.emptyList());
+            return new HashSet<>(APOLLO_TYPE_LIST_ALL);
         }
 
         @Override
-        public Valuable<List<Map<String, Object>>> valuableOf(StorableOperator storableOperator, long id, Object value) {
-            return null;
+        public Valuable<?> valuableOf(StorableOperator storableOperator, long id, Object value) {
+            return InstantArray.of(CastUtil.from(value));
+
+        }
+    },
+    INSTANT_MAP {
+        @Override
+        public Set<ApolloType> getPairableOperandTypes() {
+            return new HashSet<>(APOLLO_TYPE_LIST_ALL);
+        }
+
+        @Override
+        public Valuable<?> valuableOf(StorableOperator storableOperator, long id, Object value) {
+            return InstantMap.of(CastUtil.from(value));
         }
     },
     INSTANT_OBJECT {
@@ -199,17 +198,6 @@ public enum ApolloType {
             return null;
         }
     },
-    VARIABLE_LOCATION {
-        @Override
-        public Set<ApolloType> getPairableOperandTypes() {
-            return new HashSet<>(Collections.emptyList());
-        }
-
-        @Override
-        public Valuable<?> valuableOf(StorableOperator storableOperator, long id, Object value) {
-            return null;
-        }
-    },
     VARIABLE_CHAR {
         @Override
         public Set<ApolloType> getPairableOperandTypes() {
@@ -246,15 +234,26 @@ public enum ApolloType {
             return null;
         }
     },
-    VARIABLE_DUMMY_1 {
+    VARIABLE_ARRAY {
         @Override
         public Set<ApolloType> getPairableOperandTypes() {
-            return new HashSet<>(Collections.emptyList());
+            return new HashSet<>(APOLLO_TYPE_LIST_ALL);
         }
 
         @Override
         public Valuable<?> valuableOf(StorableOperator storableOperator, long id, Object value) {
-            return null;
+            return VariableArray.of(CastUtil.from(value));
+        }
+    },
+    VARIABLE_MAP {
+        @Override
+        public Set<ApolloType> getPairableOperandTypes() {
+            return new HashSet<>(APOLLO_TYPE_LIST_ALL);
+        }
+
+        @Override
+        public Valuable<?> valuableOf(StorableOperator storableOperator, long id, Object value) {
+            return VariableMap.of(CastUtil.from(value));
         }
     },
     VARIABLE_OBJECT {
@@ -687,16 +686,16 @@ public enum ApolloType {
     ;
 
     static private final List<ApolloType> APOLLO_TYPE_LIST_BOOL = Arrays.asList(
-            INSTANT_BOOL, VARIABLE_BOOL,
+            INSTANT_BOOL,   VARIABLE_BOOL,
             EQUAL_TO, NOT_EQUAL_TO, SMALLER_THAN, SMALLER_THAN_OR_EQUAL_TO, GREATER_THAN, GREATER_THAN_OR_EQUAL_TO,
             LOGICAL_EQUAL_TO, LOGICAL_NOT_EQUAL_TO, LOGICAL_AND, LOGICAL_OR, LOGICAL_NOT);
 
     static private final List<ApolloType> APOLLO_TYPE_LIST_INT = Arrays.asList(
-            INSTANT_INT, VARIABLE_INT,
+            INSTANT_INT,    VARIABLE_INT,
             ADDITION_INT, SUBTRACTION_INT, MULTIPLICATION_INT, DIVISION_INT);
 
     static private final List<ApolloType> APOLLO_TYPE_LIST_LONG = Arrays.asList(
-            INSTANT_LONG, VARIABLE_LONG);
+            INSTANT_LONG,   VARIABLE_LONG);
 
     static private final List<ApolloType> APOLLO_TYPE_LIST_NUM = APOLLO_TYPE_LIST_INT;
 
@@ -704,10 +703,12 @@ public enum ApolloType {
             INSTANT_STR, VARIABLE_STR);
 
     static private final List<ApolloType> APOLLO_TYPE_LIST_ALL = Arrays.asList(
-            INSTANT_BOOL, VARIABLE_BOOL,
-            INSTANT_INT, VARIABLE_INT,
-            INSTANT_LONG, VARIABLE_LONG,
-            INSTANT_STR, VARIABLE_STR,
+            INSTANT_BOOL,   VARIABLE_BOOL,
+            INSTANT_INT,    VARIABLE_INT,
+            INSTANT_LONG,   VARIABLE_LONG,
+            INSTANT_STR,    VARIABLE_STR,
+            INSTANT_ARRAY,  VARIABLE_ARRAY,
+            INSTANT_MAP,    VARIABLE_MAP,
             INSTANT_OBJECT, VARIABLE_OBJECT,
             EQUAL_TO, NOT_EQUAL_TO, SMALLER_THAN, SMALLER_THAN_OR_EQUAL_TO, GREATER_THAN, GREATER_THAN_OR_EQUAL_TO,
             LOGICAL_EQUAL_TO, LOGICAL_NOT_EQUAL_TO, LOGICAL_AND, LOGICAL_OR, LOGICAL_NOT,
@@ -720,33 +721,39 @@ public enum ApolloType {
 
     static {
         uuidMap = new HashMap<>();
-        uuidMap.put(INSTANT_BOOL.id,    0x6914B8C1);
-        uuidMap.put(INSTANT_INT.id,     0x35AA1F69);
-        uuidMap.put(INSTANT_STR.id,     0x723C7BAB);
-        uuidMap.put(VARIABLE_BOOL.id,   0x1C3BFC50);
-        uuidMap.put(VARIABLE_INT.id,    0x41165CAC);
-        uuidMap.put(VARIABLE_LONG.id,   0x6AD58E94);
-        uuidMap.put(VARIABLE_STR.id,    0x66A27177);
+        uuidMap.put(INSTANT_BOOL.id,                0x6914B8C1);
+        uuidMap.put(INSTANT_INT.id,                 0x35AA1F69);
+        uuidMap.put(INSTANT_LONG.id,                0x39C7E382);
+        uuidMap.put(INSTANT_STR.id,                 0x723C7BAB);
+        uuidMap.put(INSTANT_ARRAY.id,               0x0D27952E);
+        uuidMap.put(INSTANT_MAP.id,                 0x56B8DFB9);
 
-        uuidMap.put(ADDITION_INT.id, 0x46EA16A4);
-        uuidMap.put(SUBTRACTION_INT.id, 0x07027B67);
-        uuidMap.put(MULTIPLICATION_INT.id, 0x6AB980A9);
-        uuidMap.put(DIVISION_INT.id, 0x1685B7DE);
+        uuidMap.put(VARIABLE_BOOL.id,               0x1C3BFC50);
+        uuidMap.put(VARIABLE_INT.id,                0x41165CAC);
+        uuidMap.put(VARIABLE_LONG.id,               0x6AD58E94);
+        uuidMap.put(VARIABLE_STR.id,                0x66A27177);
+        uuidMap.put(VARIABLE_ARRAY.id,              0x18A01452);
+        uuidMap.put(VARIABLE_MAP.id,                0x289A1041);
 
-        uuidMap.put(EQUAL_TO.id, 0x1DE43694);
-        uuidMap.put(NOT_EQUAL_TO.id, 0x6DFE3550);
-        uuidMap.put(SMALLER_THAN.id, 0x4074D178);
-        uuidMap.put(SMALLER_THAN_OR_EQUAL_TO.id, 0x0FDA554A);
-        uuidMap.put(GREATER_THAN.id, 0x24DB35CA);
-        uuidMap.put(GREATER_THAN_OR_EQUAL_TO.id, 0x5834D92F);
+        uuidMap.put(ADDITION_INT.id,                0x46EA16A4);
+        uuidMap.put(SUBTRACTION_INT.id,             0x07027B67);
+        uuidMap.put(MULTIPLICATION_INT.id,          0x6AB980A9);
+        uuidMap.put(DIVISION_INT.id,                0x1685B7DE);
 
-        uuidMap.put(LOGICAL_EQUAL_TO.id, 0x26AC5F0A);
-        uuidMap.put(LOGICAL_NOT_EQUAL_TO.id, 0x7905DF2F);
-        uuidMap.put(LOGICAL_AND.id, 0x034520E6);
-        uuidMap.put(LOGICAL_OR.id, 0x06ED8409);
-        uuidMap.put(LOGICAL_NOT.id, 0x7D3ADCBA);
+        uuidMap.put(EQUAL_TO.id,                    0x1DE43694);
+        uuidMap.put(NOT_EQUAL_TO.id,                0x6DFE3550);
+        uuidMap.put(SMALLER_THAN.id,                0x4074D178);
+        uuidMap.put(SMALLER_THAN_OR_EQUAL_TO.id,    0x0FDA554A);
+        uuidMap.put(GREATER_THAN.id,                0x24DB35CA);
+        uuidMap.put(GREATER_THAN_OR_EQUAL_TO.id,    0x5834D92F);
 
-        uuidMap.put(EXTERNAL_OPERATOR.id, 0x771B821A);
+        uuidMap.put(LOGICAL_EQUAL_TO.id,            0x26AC5F0A);
+        uuidMap.put(LOGICAL_NOT_EQUAL_TO.id,        0x7905DF2F);
+        uuidMap.put(LOGICAL_AND.id,                 0x034520E6);
+        uuidMap.put(LOGICAL_OR.id,                  0x06ED8409);
+        uuidMap.put(LOGICAL_NOT.id,                 0x7D3ADCBA);
+
+        uuidMap.put(EXTERNAL_OPERATOR.id,           0x771B821A);
     }
 
     private final int id;
@@ -765,6 +772,9 @@ public enum ApolloType {
     }
 
     int getUuid() {
+        if (!uuidMap.containsKey(id)) {
+            throw new RunnableCodeException("not found in uuidMap, key=" + id);
+        }
         return uuidMap.get(id);
     }
 

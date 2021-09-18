@@ -40,10 +40,10 @@ public class ApolloController {
     }
 
     private Object compileAndRun(Token plannedToken, ParamContext paramContext) {
-        Operation<Integer, Integer> parsed = CastUtil.from(parserService.valuableOf(plannedToken));
+        Operation<Object, Object> parsed = CastUtil.from(parserService.valuableOf(plannedToken));
         OptimContext optimContext = optimService.optimize(parsed);
 //        ExeService<Integer> exe = ConcurrentCachedExeService.of(optimContext);
-        ExeService<Integer> exe = CachedExeService.of(optimContext);
+        ExeService<Object> exe = CachedExeService.of(optimContext);
         return exe.getValue(paramContext);
     }
 }

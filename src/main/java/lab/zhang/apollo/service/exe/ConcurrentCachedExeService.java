@@ -14,10 +14,10 @@ import java.util.stream.Collectors;
 /**
  * @author zhangrj
  */
-public class ConcurrentCachedExeService<R extends Comparable<R>> extends CachedExeService<R> {
+public class ConcurrentCachedExeService<R> extends CachedExeService<R> {
     @NotNull
     @Contract(value = "_ -> new", pure = true)
-    static public <R extends Comparable<R>> ConcurrentCachedExeService<R> of(OptimContext optimContext) {
+    static public <R> ConcurrentCachedExeService<R> of(OptimContext optimContext) {
         return new ConcurrentCachedExeService<>(optimContext);
     }
 

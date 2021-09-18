@@ -15,13 +15,13 @@ import java.util.Map;
 /**
  * @author zhangrj
  */
-public class CachedExeService<R extends Comparable<R>> extends ExeService<R> {
+public class CachedExeService<R> extends ExeService<R> {
 
     protected final Map<Integer, Object> resultMap;
 
     @NotNull
     @Contract(value = "_ -> new", pure = true)
-    static public <R extends Comparable<R>> CachedExeService<R> of(OptimContext optimContext) {
+    static public <R> CachedExeService<R> of(OptimContext optimContext) {
         return new CachedExeService<>(optimContext);
     }
 
