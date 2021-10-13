@@ -63,6 +63,5 @@ public class SortedOperation<R, V> extends Operation<R, V> {
 
         Collections.sort(CastUtil.from(children));
         this.children = children;
-        this.uuid = hash(this.operator, this.children);
     }
 }

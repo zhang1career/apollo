@@ -1,7 +1,7 @@
 package lab.zhang.apollo.service;
 
 import lab.zhang.apollo.bo.Valuable;
-import lab.zhang.apollo.pojo.OptimContext;
+import lab.zhang.apollo.pojo.CompileContext;
 import lab.zhang.apollo.pojo.Operation;
 import lombok.NoArgsConstructor;
 import org.jetbrains.annotations.NotNull;
@@ -14,19 +14,19 @@ import java.util.List;
  */
 @NoArgsConstructor
 abstract public class OptimService {
-    public OptimContext optimize(Operation<?, ?> root) {
+    public CompileContext optimize(Operation<?, ?> root) {
         return dfs(root);
     }
 
-    private OptimContext dfs(@NotNull Operation<?, ?> root) {
-        OptimContext context = new OptimContext();
+    private CompileContext dfs(@NotNull Operation<?, ?> root) {
+        CompileContext context = new CompileContext();
 
-        if (root.isIndependent()) {
+        if (root.isLeaf()) {
             travel(root, context);
             return this.postTravel(root, context);
         }
 
-        List<OptimContext> contextList = new ArrayList<>();
+        List<CompileContext> contextList = new ArrayList<>();
         for (Valuable<?> child : root.getChildren()) {
             if (!(child instanceof Operation)) {
                 continue;
@@ -43,7 +43,7 @@ abstract public class OptimService {
      * @param node    Token node
      * @param context analysis context for now
      */
-    abstract protected void travel(Operation<?, ?> node, OptimContext context);
+    abstract protected void travel(Operation<?, ?> node, CompileContext context);
 
     /**
      * Do something after Token travel
@@ -52,7 +52,7 @@ abstract public class OptimService {
      * @param context analysis context for now
      * @return analysis context for further
      */
-    abstract protected OptimContext postTravel(Operation<?, ?> node, OptimContext context);
+    abstract protected CompileContext postTravel(Operation<?, ?> node, CompileContext context);
 
 
     /**
@@ -61,5 +61,5 @@ abstract public class OptimService {
      * @param contextList analysis contexts to be merged
      * @return analysis contexts after merged
      */
-    abstract protected OptimContext mergeContext(List<OptimContext> contextList);
+    abstract protected CompileContext mergeContext(List<CompileContext> contextList);
 }

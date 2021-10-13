@@ -1,7 +1,9 @@
 package lab.zhang.apollo.util;
 
 import lab.zhang.apollo.bo.Valuable;
+import lab.zhang.apollo.pojo.Operation;
 import lab.zhang.apollo.pojo.Operator;
+import lab.zhang.apollo.pojo.ParamContext;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
@@ -13,8 +15,18 @@ public class HashUtil {
     private static final int PRIME = 997;
     private static final int OFFSET = 7;
 
+    public static int hash(@NotNull Operation<?, ?> operation, ParamContext paramContext, int salt) {
+        int ret = operation.hashCode() ^ salt;
+        if (paramContext == null) {
+            return ret;
+        }
+        ret += (PRIME + OFFSET) * paramContext.hashCode();
+
+        return ret;
+    }
+
     public static <R, V> int hash(@NotNull Operator<R, V> operator, List<? extends Valuable<V>> operands, int salt) {
-        int ret = salt ^ operator.hashCode();
+        int ret =  operator.hashCode() ^ salt;
         if (operands == null) {
             return ret;
         }

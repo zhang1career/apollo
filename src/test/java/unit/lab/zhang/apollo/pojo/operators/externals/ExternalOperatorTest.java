@@ -29,12 +29,12 @@ public class ExternalOperatorTest {
 
     @Test
     public void test_queryAbout() {
-        assertEquals("Welcome to Apollo, a calculation center", controller.evalFresh(operator1, paramContext));
+        assertEquals("Welcome to Apollo, a calculation center", controller.planAndEval(operator1, paramContext));
     }
 
     @Test
     public void test_queryMe() {
-        assertEquals("zhangrj", controller.evalFresh(operator2, paramContext));
+        assertEquals("zhangrj", controller.planAndEval(operator2, paramContext));
     }
 
 }

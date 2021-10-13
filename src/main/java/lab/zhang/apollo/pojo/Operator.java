@@ -15,6 +15,7 @@ abstract public class Operator<R, V> implements Calculable<R, V> {
 
     static protected Map<Integer, Operator<?, ?>> instanceMap = new HashMap<>();
 
+
     protected ApolloType type;
 
     protected Operator(ApolloType type) {
@@ -46,6 +47,10 @@ abstract public class Operator<R, V> implements Calculable<R, V> {
         }
     }
 
+    protected String[] getRequiredParams() {
+        return null;
+    }
+
     /**
      * Do the calculation
      * @param operands the operands which are to be calculated
@@ -56,6 +61,19 @@ abstract public class Operator<R, V> implements Calculable<R, V> {
 
     @Override
     public int hashCode() {
-        return type.getUuid();
+        return type.getId();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
+        }
+        if (!(obj instanceof Operator)) {
+            return false;
+        }
+
+        Operator<?, ?> op = (Operator<?, ?>) obj;
+        return type.getId() == op.type.getId();
     }
 }

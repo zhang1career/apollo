@@ -16,18 +16,11 @@ import java.util.List;
 @Setter
 public class Operation<R, V> implements ComparableValuable<R> {
 
-    static private final int HASH_MASK = 0x96A55A69;
-
-    static protected <R, V> int hash(Operator<R, V> operator, List<? extends Valuable<V>> operands) {
-        return HashUtil.hash(operator, operands, HASH_MASK);
-    }
-
+    static private final int HASH_SALT = 0x96A55A69;
 
     protected Operator<R, V> operator;
 
     protected List<? extends Valuable<V>> children;
-
-    protected int uuid;
 
     boolean cacheOn = false;
 
@@ -35,12 +28,10 @@ public class Operation<R, V> implements ComparableValuable<R> {
     protected Operation(Operator<R, V> operator, List<? extends Valuable<V>> children) {
         this.operator = operator;
         this.children = children;
-        this.uuid = hash(this.operator, this.children);
     }
 
     public void setChildren(List<? extends Valuable<V>> children) {
         this.children = children;
-        this.uuid = hash(this.operator, this.children);
     }
 
     @Override
@@ -62,6 +53,11 @@ public class Operation<R, V> implements ComparableValuable<R> {
     }
 
     @Override
+    public int hashCode() {
+        return HashUtil.hash(operator, children, HASH_SALT);
+    }
+
+    @Override
     public boolean equals(Object obj) {
         if (obj == this) {
             return true;
@@ -71,15 +67,21 @@ public class Operation<R, V> implements ComparableValuable<R> {
         }
 
         Operation<?, ?> op = (Operation<?, ?>) obj;
-        return uuid == op.uuid;
+        if (!operator.equals(op.getOperator())) {
+            return false;
+        }
+        if (children.size() != op.getChildren().size()) {
+            return false;
+        }
+        for (int i = 0; i < children.size(); i++) {
+            if (!children.get(i).equals(op.getChildren().get(i))) {
+                return false;
+            }
+        }
+        return true;
     }
 
-    @Override
-    public int hashCode() {
-        return hash(operator, children);
-    }
-
-    public boolean isIndependent() {
+    public boolean isLeaf() {
         if (children == null) {
             return true;
         }

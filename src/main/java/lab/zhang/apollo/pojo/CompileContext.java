@@ -3,36 +3,33 @@ package lab.zhang.apollo.pojo;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @author zhangrj
  */
 @Getter
 @Setter
-public class OptimContext {
+public class CompileContext {
 
     private int level;
 
-    private Map<Integer, Operand<?, String>> indexMap;
+    private Set<Operand<?, String>> requiredOperandSet;
 
     protected List<List<Operation<?, ?>>> operationList;
 
 
-    public OptimContext(int level) {
+    public CompileContext(int level) {
         this.level = level;
-        this.indexMap = new HashMap<>();
+        this.requiredOperandSet = new HashSet<>();
         this.operationList = new ArrayList<>();
     }
 
-    public OptimContext() {
+    public CompileContext() {
         this(0);
     }
 
-    public OptimContext incrLevel() {
+    public CompileContext incrLevel() {
         level++;
         return this;
     }

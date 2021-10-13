@@ -13,7 +13,7 @@ import org.jetbrains.annotations.NotNull;
 abstract public class Operand<V, N> implements ComparableValuable<V> {
 
     static protected <N> int hash(@NotNull ApolloType type, N value) {
-        return type.getUuid() ^ HashUtil.codeFrom(value);
+        return type.getId() ^ HashUtil.codeFrom(value);
     }
 
     protected ApolloType type;
@@ -36,6 +36,11 @@ abstract public class Operand<V, N> implements ComparableValuable<V> {
     }
 
     @Override
+    public int hashCode() {
+        return hash(type, value);
+    }
+
+    @Override
     public boolean equals(Object obj) {
         if (obj == this) {
             return true;
@@ -45,11 +50,9 @@ abstract public class Operand<V, N> implements ComparableValuable<V> {
         }
 
         Operand<?, ?> op = (Operand<?, ?>) obj;
-        return hashCode() == op.hashCode();
-    }
-
-    @Override
-    public int hashCode() {
-        return hash(type, value);
+        if (type.getId() != op.type.getId()) {
+            return false;
+        }
+        return value == op.value;
     }
 }

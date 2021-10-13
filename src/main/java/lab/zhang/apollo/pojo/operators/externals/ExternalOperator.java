@@ -47,6 +47,14 @@ abstract public class ExternalOperator extends UnsortableOperator<Object, Object
         super(TYPE);
     }
 
+
+    /**
+     * Get required names of parameters
+     * @return array of parameter names
+     */
+    @Override
+    abstract protected String[] getRequiredParams();
+
     /**
      * Do the calculation
      * @param operands     the operands which are to be calculated

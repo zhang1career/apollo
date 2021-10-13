@@ -3,7 +3,7 @@ package unit.lab.zhang.apollo.service.optim;
 import lab.zhang.apollo.pojo.ParamContext;
 import lab.zhang.apollo.service.exe.CachedExeService;
 import lab.zhang.apollo.service.optim.IteratingOptimService;
-import lab.zhang.apollo.pojo.OptimContext;
+import lab.zhang.apollo.pojo.CompileContext;
 import lab.zhang.apollo.pojo.operands.instants.InstantInt;
 import lab.zhang.apollo.pojo.operands.variables.VariableInt;
 import lab.zhang.apollo.pojo.operations.SortedOperation;
@@ -54,9 +54,9 @@ public class IteratingOptimServiceTest {
         UnsortedOperation<Boolean, Integer> gtOperation2 = UnsortedOperation.of(gt, Lists.list(subOperation, op0));
         SortedOperation<Boolean, Boolean> orOperation = SortedOperation.of(or, Lists.list(gtOperation1, gtOperation2));
 
-        OptimContext context = analyzer.optimize(orOperation);
+        CompileContext context = analyzer.optimize(orOperation);
 
-        System.out.println(context.getIndexMap());
+        System.out.println(context.getRequiredOperandSet());
         System.out.println(context.getOperationList());
 
         CachedExeService<Boolean> exe = CachedExeService.of(context);

@@ -7,7 +7,7 @@ import com.github.noconnor.junitperf.reporting.providers.HtmlReportGenerator;
 import lab.zhang.apollo.pojo.ParamContext;
 import lab.zhang.apollo.service.exe.CachedExeService;
 import lab.zhang.apollo.service.optim.IteratingOptimService;
-import lab.zhang.apollo.pojo.OptimContext;
+import lab.zhang.apollo.pojo.CompileContext;
 import lab.zhang.apollo.service.ExeService;
 import lab.zhang.apollo.pojo.operands.instants.InstantInt;
 import lab.zhang.apollo.pojo.operations.SortedOperation;
@@ -47,7 +47,7 @@ public class CachedExeServicePerf {
         SortedOperation<Integer, Integer> tion3 = SortedOperation.of(tor1, Lists.list(op0, tion2));
         SortedOperation<Integer, Integer> tion4 = SortedOperation.of(tor1, Lists.list(op0, tion3));
         SortedOperation<Integer, Integer> tion5 = SortedOperation.of(tor1, Lists.list(op0, tion4));
-        OptimContext context = analyzer.optimize(tion5);
+        CompileContext context = analyzer.optimize(tion5);
 
         target = CachedExeService.of(context);
 

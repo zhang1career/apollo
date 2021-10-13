@@ -1,7 +1,6 @@
 package lab.zhang.apollo.pojo;
 
 import lab.zhang.apollo.bo.Valuable;
-import lab.zhang.apollo.exception.RunnableCodeException;
 import lab.zhang.apollo.pojo.operands.instants.*;
 import lab.zhang.apollo.pojo.operands.variables.*;
 import lab.zhang.apollo.pojo.operations.SortedOperation;
@@ -86,7 +85,6 @@ public enum ApolloType {
             return null;
         }
     },
-
     /**
      * string instant operand
      */
@@ -112,6 +110,9 @@ public enum ApolloType {
             return null;
         }
     },
+    /**
+     * array instant operand
+     */
     INSTANT_ARRAY {
         @Override
         public Set<ApolloType> getPairableOperandTypes() {
@@ -121,9 +122,11 @@ public enum ApolloType {
         @Override
         public Valuable<?> valuableOf(StorableOperator storableOperator, long id, Object value) {
             return InstantArray.of(CastUtil.from(value));
-
         }
     },
+    /**
+     * map instant operand
+     */
     INSTANT_MAP {
         @Override
         public Set<ApolloType> getPairableOperandTypes() {
@@ -135,6 +138,9 @@ public enum ApolloType {
             return InstantMap.of(CastUtil.from(value));
         }
     },
+    /**
+     * object instant operand
+     */
     INSTANT_OBJECT {
         @Override
         public Set<ApolloType> getPairableOperandTypes() {
@@ -717,45 +723,6 @@ public enum ApolloType {
             ORIGINAL_OPERATION);
 
 
-    static Map<Integer, Integer> uuidMap;
-
-    static {
-        uuidMap = new HashMap<>();
-        uuidMap.put(INSTANT_BOOL.id,                0x6914B8C1);
-        uuidMap.put(INSTANT_INT.id,                 0x35AA1F69);
-        uuidMap.put(INSTANT_LONG.id,                0x39C7E382);
-        uuidMap.put(INSTANT_STR.id,                 0x723C7BAB);
-        uuidMap.put(INSTANT_ARRAY.id,               0x0D27952E);
-        uuidMap.put(INSTANT_MAP.id,                 0x56B8DFB9);
-
-        uuidMap.put(VARIABLE_BOOL.id,               0x1C3BFC50);
-        uuidMap.put(VARIABLE_INT.id,                0x41165CAC);
-        uuidMap.put(VARIABLE_LONG.id,               0x6AD58E94);
-        uuidMap.put(VARIABLE_STR.id,                0x66A27177);
-        uuidMap.put(VARIABLE_ARRAY.id,              0x18A01452);
-        uuidMap.put(VARIABLE_MAP.id,                0x289A1041);
-
-        uuidMap.put(ADDITION_INT.id,                0x46EA16A4);
-        uuidMap.put(SUBTRACTION_INT.id,             0x07027B67);
-        uuidMap.put(MULTIPLICATION_INT.id,          0x6AB980A9);
-        uuidMap.put(DIVISION_INT.id,                0x1685B7DE);
-
-        uuidMap.put(EQUAL_TO.id,                    0x1DE43694);
-        uuidMap.put(NOT_EQUAL_TO.id,                0x6DFE3550);
-        uuidMap.put(SMALLER_THAN.id,                0x4074D178);
-        uuidMap.put(SMALLER_THAN_OR_EQUAL_TO.id,    0x0FDA554A);
-        uuidMap.put(GREATER_THAN.id,                0x24DB35CA);
-        uuidMap.put(GREATER_THAN_OR_EQUAL_TO.id,    0x5834D92F);
-
-        uuidMap.put(LOGICAL_EQUAL_TO.id,            0x26AC5F0A);
-        uuidMap.put(LOGICAL_NOT_EQUAL_TO.id,        0x7905DF2F);
-        uuidMap.put(LOGICAL_AND.id,                 0x034520E6);
-        uuidMap.put(LOGICAL_OR.id,                  0x06ED8409);
-        uuidMap.put(LOGICAL_NOT.id,                 0x7D3ADCBA);
-
-        uuidMap.put(EXTERNAL_OPERATOR.id,           0x771B821A);
-    }
-
     private final int id;
 
     private static class IdCounter {
@@ -769,13 +736,6 @@ public enum ApolloType {
 
     ApolloType() {
         this(IdCounter.nextValue);
-    }
-
-    int getUuid() {
-        if (!uuidMap.containsKey(id)) {
-            throw new RunnableCodeException("not found in uuidMap, key=" + id);
-        }
-        return uuidMap.get(id);
     }
 
     public OpType getOpType() {

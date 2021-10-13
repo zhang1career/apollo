@@ -1,24 +1,24 @@
 package lab.zhang.apollo.service;
 
 import lab.zhang.apollo.bo.Valuable;
+import lab.zhang.apollo.pojo.CompileContext;
 import lab.zhang.apollo.pojo.ParamContext;
-import lab.zhang.apollo.pojo.OptimContext;
 
 /**
  * @author zhangrj
  */
 abstract public class ExeService<R> implements Valuable<R> {
-    protected R result;
 
-    protected final OptimContext optimContext;
+    protected final CompileContext compileContext;
 
-    protected ExeService(OptimContext optimContext) {
-        this.optimContext = optimContext;
+    protected ExeService(CompileContext compileContext) {
+        this.compileContext = compileContext;
     }
 
-    
-    public R getResult() {
-        return result;
+
+    @Override
+    public R getValue(ParamContext paramContext) {
+        return exeValue(paramContext);
     }
 
     /**
@@ -26,6 +26,5 @@ abstract public class ExeService<R> implements Valuable<R> {
      * @param paramContext The context that holds indices
      * @return the result of calculation
      */
-    @Override
-    abstract public R getValue(ParamContext paramContext);
+    abstract public R exeValue(ParamContext paramContext);
 }
