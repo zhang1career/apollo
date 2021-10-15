@@ -1,7 +1,7 @@
 package unit.lab.zhang.apollo.dao;
 
-import lab.zhang.apollo.entity.ExpressionEntity;
 import org.apache.ibatis.annotations.Select;
+import unit.lab.zhang.apollo.entity.ExpressionEntity;
 
 /**
  * @author zhangrj

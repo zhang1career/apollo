@@ -12,11 +12,6 @@ public class ExternalOperatorMe extends ExternalOperator {
     }
 
     @Override
-    protected String[] getRequiredParams() {
-        return null;
-    }
-
-    @Override
     public Object doCalc(List<? extends Valuable<Object>> operands, ParamContext paramContext) {
         return "zhangrj";
     }

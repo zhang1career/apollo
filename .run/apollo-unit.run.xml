@@ -22,7 +22,6 @@
       <pattern testClass="NotEqualToTest" />
       <pattern testClass="SmallerThanTest" />
       <pattern testClass="SmallerThanOrEqualToTest" />
-      <pattern testClass="ExternalOperatorTest" />
       <pattern testClass="LogicalAndTest" />
       <pattern testClass="LogicalEqualToTest" />
       <pattern testClass="LogicalNotEqualToTest" />

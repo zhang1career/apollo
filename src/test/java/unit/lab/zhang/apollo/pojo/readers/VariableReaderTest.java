@@ -38,7 +38,7 @@ public class VariableReaderTest {
         Exception exception = assertThrows(RuntimeException.class, () -> {
             target.read(amount1.getValue(), paramContext);
         });
-        String expectedMessage = "Cannot find the index";
+        String expectedMessage = "Cannot find the variable";
         String actualMessage = exception.getMessage();
         assertTrue(actualMessage.contains(expectedMessage));
     }

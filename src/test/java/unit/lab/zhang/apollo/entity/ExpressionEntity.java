@@ -1,4 +1,4 @@
-package lab.zhang.apollo.entity;
+package unit.lab.zhang.apollo.entity;
 
 import lombok.Data;
 
@@ -8,10 +8,12 @@ import lombok.Data;
 @Data
 public class ExpressionEntity extends BaseEntity {
 
+    private String name;
     private String expression;
 
-    public ExpressionEntity(long id, String expression) {
+    public ExpressionEntity(long id, String name, String expression) {
         this.id = id;
+        this.name = name;
         this.expression = expression;
     }
 }

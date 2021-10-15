@@ -8,6 +8,7 @@
     <version>0.0.1-SNAPSHOT</version>
     <name>apollo</name>
     <description>A Calculation Center</description>
+    <packaging>jar</packaging>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -30,6 +31,33 @@
         <junitperf.version>1.18.0</junitperf.version>
         <vmlens.api.version>1.1.5</vmlens.api.version>
     </properties>
+
+    <repositories>
+        <repository>
+            <id>maven-nexus</id>
+            <name>maven-nexus</name>
+            <url>http://localhost:8081/repository/maven-public/</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
+
+    <distributionManagement>
+        <repository>
+            <id>maven-releases</id>
+            <name>Releases</name>
+            <url>http://localhost:8081/repository/maven-releases/</url>
+        </repository>
+        <snapshotRepository>
+            <id>maven-snapshots</id>
+            <name>Snapshot</name>
+            <url>http://localhost:8081/repository/maven-snapshots/</url>
+        </snapshotRepository>
+    </distributionManagement>
 
     <dependencies>
         <!--utils-->

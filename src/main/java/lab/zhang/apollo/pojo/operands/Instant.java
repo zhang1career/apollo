@@ -1,7 +1,7 @@
 package lab.zhang.apollo.pojo.operands;
 
-import lab.zhang.apollo.pojo.Operand;
 import lab.zhang.apollo.pojo.ApolloType;
+import lab.zhang.apollo.pojo.Operand;
 import lab.zhang.apollo.pojo.readers.InstantReader;
 
 import java.util.HashMap;

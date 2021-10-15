@@ -1,8 +1,8 @@
 package unit.lab.zhang.apollo.repo.expression;
 
-import lab.zhang.apollo.entity.ExpressionEntity;
 import org.junit.Before;
 import org.junit.Test;
+import unit.lab.zhang.apollo.entity.ExpressionEntity;
 
 import static org.junit.Assert.assertNotNull;
 

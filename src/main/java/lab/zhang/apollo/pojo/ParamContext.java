@@ -16,7 +16,11 @@ public class ParamContext {
 
     @NotNull
     static public ParamContext requiredFrom(@NotNull Operator<?, ?> operator, @NotNull ParamContext paramContext) {
-        Map<String, Object> intersectMap = MapUtil.intersect(paramContext.getMap(), operator.getRequiredParams());
+        String[] requiredParams = operator.getRequiredParams();
+        if (requiredParams == null) {
+            return new ParamContext(paramContext);
+        }
+        Map<String, Object> intersectMap = MapUtil.intersect(paramContext.getMap(), requiredParams);
         return new ParamContext(intersectMap);
     }
 
@@ -29,6 +33,10 @@ public class ParamContext {
 
     public ParamContext(Map<String, Object> map) {
         this.map = map;
+    }
+
+    public ParamContext(ParamContext paramContext) {
+        this.map = paramContext.getMap();
     }
 
     public <T> T getValue(String key) {

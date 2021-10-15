@@ -1,7 +1,7 @@
 package unit.lab.zhang.apollo.repo.expression;
 
 import unit.lab.zhang.apollo.dao.ExpressionDao;
-import lab.zhang.apollo.entity.ExpressionEntity;
+import unit.lab.zhang.apollo.entity.ExpressionEntity;
 import unit.lab.zhang.apollo.repo.BaseRepo;
 
 import java.io.IOException;
