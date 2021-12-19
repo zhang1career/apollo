@@ -27,7 +27,7 @@ public class LogicalNotEqualToTest {
     public ExpectedException expectedEx = ExpectedException.none();
 
     @Before
-    public void setUp() {
+    public void setUp() throws Exception {
         target = LogicalNotEqualTo.of();
 
         op0 = VariableBool.of("t");

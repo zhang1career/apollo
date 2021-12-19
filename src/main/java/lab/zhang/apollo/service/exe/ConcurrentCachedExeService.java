@@ -1,8 +1,8 @@
 package lab.zhang.apollo.service.exe;
 
+import lab.zhang.apollo.bo.Valuable;
 import lab.zhang.apollo.pojo.CompileContext;
 import lab.zhang.apollo.pojo.ExeContext;
-import lab.zhang.apollo.pojo.Operation;
 import lab.zhang.apollo.pojo.ParamContext;
 import lab.zhang.apollo.util.CastUtil;
 import lombok.Getter;
@@ -31,8 +31,8 @@ public class ConcurrentCachedExeService<R> extends CachedExeService<R> {
     public R exeValue(ParamContext paramContext) {
         ValueSink<Object> valueSink = new ValueSink<>();
 
-        for (List<Operation<?, ?>> operationList : compileContext.getOperationList()) {
-            List<Object> resultList = operationList
+        for (List<Valuable<?>> valuableList : compileContext.getOperationList()) {
+            List<Object> resultList = valuableList
                     .parallelStream()
                     .map((operation) -> {
                         ExeContext exeContext = new ExeContext(operation, paramContext);

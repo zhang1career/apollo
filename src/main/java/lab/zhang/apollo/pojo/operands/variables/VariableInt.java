@@ -2,6 +2,7 @@ package lab.zhang.apollo.pojo.operands.variables;
 
 import lab.zhang.apollo.bo.Valuable;
 import lab.zhang.apollo.pojo.ApolloType;
+import lab.zhang.apollo.pojo.ParamContext;
 import lab.zhang.apollo.pojo.operands.Variable;
 import lab.zhang.apollo.pojo.operands.instants.InstantInt;
 import org.jetbrains.annotations.Contract;
@@ -32,5 +33,14 @@ public class VariableInt extends Variable<Integer> {
         }
 
         return Integer.compare(hashCode(), o.hashCode());
+    }
+
+    @Override
+    public Integer getValue(ParamContext paramContext) {
+        Object obj = reader.read(value, paramContext);
+        if (obj == null) {
+            return null;
+        }
+        return parseInteger(obj);
     }
 }

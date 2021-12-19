@@ -33,6 +33,12 @@ public class LogicalNotEqualTo extends SortableOperator<Boolean, Boolean> {
 
     @Override
     protected Boolean doCalc(@NotNull List<? extends Valuable<Boolean>> operands, ParamContext paramContext) {
-        return !operands.get(0).getValue(paramContext).equals(operands.get(1).getValue(paramContext));
+        Boolean value0 = operands.get(0).getValue(paramContext);
+        Boolean value1 = operands.get(1).getValue(paramContext);
+        if (value0 == null || value1 == null) {
+            return false;
+        }
+
+        return !value0.equals(value1);
     }
 }

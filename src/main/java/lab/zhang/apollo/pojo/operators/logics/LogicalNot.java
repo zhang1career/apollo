@@ -33,6 +33,10 @@ public class LogicalNot extends SortableOperator<Boolean, Boolean> {
 
     @Override
     protected Boolean doCalc(@NotNull List<? extends Valuable<Boolean>> operands, ParamContext paramContext) {
-        return !operands.get(0).getValue(paramContext);
+        Boolean value = operands.get(0).getValue(paramContext);
+        if (value == null) {
+            return false;
+        }
+        return !value;
     }
 }

@@ -10,6 +10,7 @@ import lab.zhang.apollo.pojo.operators.arithmetics.Subtraction;
 import lab.zhang.apollo.pojo.operators.comparators.*;
 import lab.zhang.apollo.pojo.operators.externals.ExternalOperator;
 import lab.zhang.apollo.pojo.operators.logics.*;
+import lab.zhang.apollo.pojo.operators.strings.StringRegMatch;
 import lab.zhang.apollo.repo.StorableOperator;
 import lab.zhang.apollo.util.CastUtil;
 import lombok.AllArgsConstructor;
@@ -18,6 +19,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.*;
+import java.util.concurrent.ExecutionException;
 
 /**
  * @author zhangrj
@@ -30,11 +32,11 @@ public enum ApolloType {
     INSTANT_BOOL {
         @Override
         public Set<ApolloType> getPairableOperandTypes() {
-            return new HashSet<>(APOLLO_TYPE_LIST_BOOL);
+            return APOLLO_TYPE_SET_BOOL;
         }
 
         @Override
-        public Valuable<Boolean> valuableOf(StorableOperator storableOperator, long id, Object value) {
+        public Valuable<Boolean> valuableOf(StorableOperator storableOperator, long id, Object value) throws ExecutionException {
             return InstantBool.of(CastUtil.from(value));
         }
     },
@@ -44,7 +46,7 @@ public enum ApolloType {
     INSTANT_INT {
         @Override
         public Set<ApolloType> getPairableOperandTypes() {
-            return new HashSet<>(APOLLO_TYPE_LIST_INT);
+            return APOLLO_TYPE_SET_INT;
         }
 
         @Override
@@ -91,7 +93,7 @@ public enum ApolloType {
     INSTANT_STR {
         @Override
         public Set<ApolloType> getPairableOperandTypes() {
-            return new HashSet<>(APOLLO_TYPE_LIST_STR);
+            return APOLLO_TYPE_SET_STR;
         }
 
         @Override
@@ -116,7 +118,7 @@ public enum ApolloType {
     INSTANT_ARRAY {
         @Override
         public Set<ApolloType> getPairableOperandTypes() {
-            return new HashSet<>(APOLLO_TYPE_LIST_ALL);
+            return APOLLO_TYPE_SET_ALL;
         }
 
         @Override
@@ -130,7 +132,7 @@ public enum ApolloType {
     INSTANT_MAP {
         @Override
         public Set<ApolloType> getPairableOperandTypes() {
-            return new HashSet<>(APOLLO_TYPE_LIST_ALL);
+            return APOLLO_TYPE_SET_ALL;
         }
 
         @Override
@@ -144,7 +146,7 @@ public enum ApolloType {
     INSTANT_OBJECT {
         @Override
         public Set<ApolloType> getPairableOperandTypes() {
-            return new HashSet<>(APOLLO_TYPE_LIST_ALL);
+            return APOLLO_TYPE_SET_ALL;
         }
 
         @Override
@@ -159,7 +161,7 @@ public enum ApolloType {
     VARIABLE_BOOL {
         @Override
         public Set<ApolloType> getPairableOperandTypes() {
-            return new HashSet<>(APOLLO_TYPE_LIST_BOOL);
+            return APOLLO_TYPE_SET_BOOL;
         }
 
         @Override
@@ -173,7 +175,7 @@ public enum ApolloType {
     VARIABLE_INT {
         @Override
         public Set<ApolloType> getPairableOperandTypes() {
-            return new HashSet<>(APOLLO_TYPE_LIST_INT);
+            return APOLLO_TYPE_SET_INT;
         }
 
         @Override
@@ -184,7 +186,7 @@ public enum ApolloType {
     VARIABLE_LONG {
         @Override
         public Set<ApolloType> getPairableOperandTypes() {
-            return new HashSet<>(APOLLO_TYPE_LIST_LONG);
+            return APOLLO_TYPE_SET_LONG;
         }
 
         @Override
@@ -221,7 +223,7 @@ public enum ApolloType {
     VARIABLE_STR {
         @Override
         public Set<ApolloType> getPairableOperandTypes() {
-            return new HashSet<>(APOLLO_TYPE_LIST_STR);
+            return APOLLO_TYPE_SET_STR;
         }
 
         @Override
@@ -243,7 +245,7 @@ public enum ApolloType {
     VARIABLE_ARRAY {
         @Override
         public Set<ApolloType> getPairableOperandTypes() {
-            return new HashSet<>(APOLLO_TYPE_LIST_ALL);
+            return APOLLO_TYPE_SET_ALL;
         }
 
         @Override
@@ -254,7 +256,7 @@ public enum ApolloType {
     VARIABLE_MAP {
         @Override
         public Set<ApolloType> getPairableOperandTypes() {
-            return new HashSet<>(APOLLO_TYPE_LIST_ALL);
+            return APOLLO_TYPE_SET_ALL;
         }
 
         @Override
@@ -265,7 +267,7 @@ public enum ApolloType {
     VARIABLE_OBJECT {
         @Override
         public Set<ApolloType> getPairableOperandTypes() {
-            return new HashSet<>(APOLLO_TYPE_LIST_ALL);
+            return APOLLO_TYPE_SET_ALL;
         }
 
         @Override
@@ -291,7 +293,7 @@ public enum ApolloType {
 
         @Override
         public Set<ApolloType> getPairableOperandTypes() {
-            return new HashSet<>(APOLLO_TYPE_LIST_INT);
+            return APOLLO_TYPE_SET_INT;
         }
 
         @Override
@@ -316,7 +318,7 @@ public enum ApolloType {
 
         @Override
         public Set<ApolloType> getPairableOperandTypes() {
-            return new HashSet<>(APOLLO_TYPE_LIST_INT);
+            return APOLLO_TYPE_SET_INT;
         }
 
         @Override
@@ -337,7 +339,7 @@ public enum ApolloType {
 
         @Override
         public Set<ApolloType> getPairableOperandTypes() {
-            return new HashSet<>(APOLLO_TYPE_LIST_INT);
+            return APOLLO_TYPE_SET_INT;
         }
 
         @Override
@@ -364,7 +366,7 @@ public enum ApolloType {
 
         @Override
         public Set<ApolloType> getPairableOperandTypes() {
-            return new HashSet<>(APOLLO_TYPE_LIST_INT);
+            return APOLLO_TYPE_SET_INT;
         }
 
         @Override
@@ -389,7 +391,7 @@ public enum ApolloType {
 
         @Override
         public Set<ApolloType> getPairableOperandTypes() {
-            return new HashSet<>(APOLLO_TYPE_LIST_NUM);
+            return APOLLO_TYPE_SET_NUM;
         }
 
         @Override
@@ -410,7 +412,7 @@ public enum ApolloType {
 
         @Override
         public Set<ApolloType> getPairableOperandTypes() {
-            return new HashSet<>(APOLLO_TYPE_LIST_NUM);
+            return APOLLO_TYPE_SET_NUM;
         }
 
         @Override
@@ -431,7 +433,7 @@ public enum ApolloType {
 
         @Override
         public Set<ApolloType> getPairableOperandTypes() {
-            return new HashSet<>(APOLLO_TYPE_LIST_NUM);
+            return APOLLO_TYPE_SET_NUM;
         }
 
         @Override
@@ -452,7 +454,7 @@ public enum ApolloType {
 
         @Override
         public Set<ApolloType> getPairableOperandTypes() {
-            return new HashSet<>(APOLLO_TYPE_LIST_NUM);
+            return APOLLO_TYPE_SET_NUM;
         }
 
         @Override
@@ -477,7 +479,7 @@ public enum ApolloType {
 
         @Override
         public Set<ApolloType> getPairableOperandTypes() {
-            return new HashSet<>(APOLLO_TYPE_LIST_NUM);
+            return APOLLO_TYPE_SET_NUM;
         }
 
         @Override
@@ -498,7 +500,7 @@ public enum ApolloType {
 
         @Override
         public Set<ApolloType> getPairableOperandTypes() {
-            return new HashSet<>(APOLLO_TYPE_LIST_NUM);
+            return APOLLO_TYPE_SET_NUM;
         }
 
         @Override
@@ -523,7 +525,7 @@ public enum ApolloType {
 
         @Override
         public Set<ApolloType> getPairableOperandTypes() {
-            return new HashSet<>(APOLLO_TYPE_LIST_BOOL);
+            return APOLLO_TYPE_SET_BOOL;
         }
 
         @Override
@@ -548,7 +550,7 @@ public enum ApolloType {
 
         @Override
         public Set<ApolloType> getPairableOperandTypes() {
-            return new HashSet<>(APOLLO_TYPE_LIST_BOOL);
+            return APOLLO_TYPE_SET_BOOL;
         }
 
         @Override
@@ -573,7 +575,7 @@ public enum ApolloType {
 
         @Override
         public Set<ApolloType> getPairableOperandTypes() {
-            return new HashSet<>(APOLLO_TYPE_LIST_BOOL);
+            return APOLLO_TYPE_SET_BOOL;
         }
 
         @Override
@@ -598,7 +600,7 @@ public enum ApolloType {
 
         @Override
         public Set<ApolloType> getPairableOperandTypes() {
-            return new HashSet<>(APOLLO_TYPE_LIST_BOOL);
+            return APOLLO_TYPE_SET_BOOL;
         }
 
         @Override
@@ -623,7 +625,7 @@ public enum ApolloType {
 
         @Override
         public Set<ApolloType> getPairableOperandTypes() {
-            return new HashSet<>(APOLLO_TYPE_LIST_BOOL);
+            return APOLLO_TYPE_SET_BOOL;
         }
 
         @Override
@@ -632,6 +634,30 @@ public enum ApolloType {
         }
     },
 
+    /**
+     * string regex match operator
+     */
+    STRING_REG_MATCH {
+        @Override
+        public OpType getOpType() {
+            return OpType.OPERATOR;
+        }
+
+        @Override
+        public boolean checkCard(int num) {
+            return Cardinality.BINARY.checkCard(num);
+        }
+
+        @Override
+        public Set<ApolloType> getPairableOperandTypes() {
+            return APOLLO_TYPE_SET_STR;
+        }
+
+        @Override
+        public Valuable<?> valuableOf(StorableOperator storableOperator, long id, Object value) {
+            return UnsortedOperation.of(StringRegMatch.of());
+        }
+    },
 
     /**
      * external operator
@@ -649,7 +675,7 @@ public enum ApolloType {
 
         @Override
         public Set<ApolloType> getPairableOperandTypes() {
-            return new HashSet<>(APOLLO_TYPE_LIST_ALL);
+            return APOLLO_TYPE_SET_ALL;
         }
 
         @Override
@@ -681,7 +707,7 @@ public enum ApolloType {
 
         @Override
         public Set<ApolloType> getPairableOperandTypes() {
-            return new HashSet<>(APOLLO_TYPE_LIST_ALL);
+            return APOLLO_TYPE_SET_ALL;
         }
 
         @Override
@@ -691,24 +717,30 @@ public enum ApolloType {
     },
     ;
 
-    static private final List<ApolloType> APOLLO_TYPE_LIST_BOOL = Arrays.asList(
+    //@todo list to array
+    static private final Set<ApolloType> APOLLO_TYPE_SET_BOOL = new HashSet<>(Arrays.asList(
             INSTANT_BOOL,   VARIABLE_BOOL,
             EQUAL_TO, NOT_EQUAL_TO, SMALLER_THAN, SMALLER_THAN_OR_EQUAL_TO, GREATER_THAN, GREATER_THAN_OR_EQUAL_TO,
-            LOGICAL_EQUAL_TO, LOGICAL_NOT_EQUAL_TO, LOGICAL_AND, LOGICAL_OR, LOGICAL_NOT);
+            LOGICAL_EQUAL_TO, LOGICAL_NOT_EQUAL_TO, LOGICAL_AND, LOGICAL_OR, LOGICAL_NOT
+    ));
 
-    static private final List<ApolloType> APOLLO_TYPE_LIST_INT = Arrays.asList(
+    static private final Set<ApolloType> APOLLO_TYPE_SET_INT = new HashSet<>(Arrays.asList(
             INSTANT_INT,    VARIABLE_INT,
-            ADDITION_INT, SUBTRACTION_INT, MULTIPLICATION_INT, DIVISION_INT);
+            ADDITION_INT, SUBTRACTION_INT, MULTIPLICATION_INT, DIVISION_INT
+    ));
 
-    static private final List<ApolloType> APOLLO_TYPE_LIST_LONG = Arrays.asList(
-            INSTANT_LONG,   VARIABLE_LONG);
+    static private final Set<ApolloType> APOLLO_TYPE_SET_LONG = new HashSet<>(Arrays.asList(
+            INSTANT_LONG,   VARIABLE_LONG
+    ));
 
-    static private final List<ApolloType> APOLLO_TYPE_LIST_NUM = APOLLO_TYPE_LIST_INT;
+    static private final Set<ApolloType> APOLLO_TYPE_SET_NUM = APOLLO_TYPE_SET_INT;
 
-    static private final List<ApolloType> APOLLO_TYPE_LIST_STR = Arrays.asList(
-            INSTANT_STR, VARIABLE_STR);
+    static private final Set<ApolloType> APOLLO_TYPE_SET_STR = new HashSet<>(Arrays.asList(
+            INSTANT_STR, VARIABLE_STR,
+            STRING_REG_MATCH
+    ));
 
-    static private final List<ApolloType> APOLLO_TYPE_LIST_ALL = Arrays.asList(
+    static private final Set<ApolloType> APOLLO_TYPE_SET_ALL = new HashSet<>(Arrays.asList(
             INSTANT_BOOL,   VARIABLE_BOOL,
             INSTANT_INT,    VARIABLE_INT,
             INSTANT_LONG,   VARIABLE_LONG,
@@ -719,8 +751,10 @@ public enum ApolloType {
             EQUAL_TO, NOT_EQUAL_TO, SMALLER_THAN, SMALLER_THAN_OR_EQUAL_TO, GREATER_THAN, GREATER_THAN_OR_EQUAL_TO,
             LOGICAL_EQUAL_TO, LOGICAL_NOT_EQUAL_TO, LOGICAL_AND, LOGICAL_OR, LOGICAL_NOT,
             ADDITION_INT, SUBTRACTION_INT, MULTIPLICATION_INT, DIVISION_INT,
+            STRING_REG_MATCH,
             EXTERNAL_OPERATOR,
-            ORIGINAL_OPERATION);
+            ORIGINAL_OPERATION
+    ));
 
 
     private final int id;
@@ -742,7 +776,7 @@ public enum ApolloType {
         return OpType.OPERAND;
     }
 
-    public boolean checkType(@NotNull List<ApolloType> types) {
+    public boolean checkType(@NotNull Set<ApolloType> types) {
         if (types.size() <= 0) {
             return true;
         }
@@ -765,7 +799,7 @@ public enum ApolloType {
 
     public abstract Set<ApolloType> getPairableOperandTypes();
 
-    public abstract Valuable<?> valuableOf(StorableOperator storableOperator, long id, Object value);
+    public abstract Valuable<?> valuableOf(StorableOperator storableOperator, long id, Object value) throws ExecutionException;
 
     @Override
     public String toString() {

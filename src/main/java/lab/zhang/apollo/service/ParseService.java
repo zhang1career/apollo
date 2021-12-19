@@ -10,18 +10,19 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 /**
  * @author zhangrj
  */
-public class ParserService {
+public class ParseService {
     private final StorableOperator storableOperator;
 
-    public ParserService(StorableOperator storableOperator) {
+    public ParseService(StorableOperator storableOperator) {
         this.storableOperator = storableOperator;
     }
 
-    public Valuable<?> valuableOf(@NotNull Token token) {
+    public Valuable<?> valuableOf(@NotNull Token token) throws ExecutionException {
         Valuable<?> valuable;
 
         if (token.getType().getOpType() == ApolloType.OpType.OPERAND) {
@@ -40,6 +41,8 @@ public class ParserService {
             childValueList.add(valuableOf(childToken));
         }
         ((Operation<?, ?>) valuable).setChildren(CastUtil.from(childValueList));
+
+        ((Operation<?, ?>) valuable).postParse();
         return valuable;
     }
 }

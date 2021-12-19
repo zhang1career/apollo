@@ -6,14 +6,18 @@ import lab.zhang.apollo.pojo.Operator;
 import lab.zhang.apollo.pojo.ParamContext;
 import lab.zhang.apollo.pojo.operators.SortableOperator;
 import lab.zhang.apollo.util.CastUtil;
+import lombok.extern.slf4j.Slf4j;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
 /**
  * @author zhangrj
  */
+@Slf4j
 public class Addition extends SortableOperator<Integer, Integer> {
 
     static private final ApolloType TYPE = ApolloType.ADDITION_INT;
@@ -31,11 +35,18 @@ public class Addition extends SortableOperator<Integer, Integer> {
         super(TYPE);
     }
 
+    private final Logger logger = LoggerFactory.getLogger(getClass());
+
     @Override
     protected Integer doCalc(@NotNull List<? extends Valuable<Integer>> operands, ParamContext paramContext) {
         int ret = 0;
         for (Valuable<Integer> operand : operands) {
-            ret += operand.getValue(paramContext);
+            Integer value = operand.getValue(paramContext);
+            if (value == null) {
+                logger.warn("null value got");
+                continue;
+            }
+            ret += value;
         }
         return ret;
     }

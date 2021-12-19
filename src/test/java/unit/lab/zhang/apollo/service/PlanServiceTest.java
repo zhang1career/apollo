@@ -43,23 +43,23 @@ public class PlanServiceTest {
         p1 = lexerService.tokenOf(freshExpression1);
         c1 = lexerService.tokenOf(freshExpression1);
 
-        String freshExpression2 = "{\"name\":\"指标3\",\"type\":35,\"id\":1,\"value\":[{\"name\":\"指标1\",\"type\":1,\"id\":0,\"value\":1},{\"name\":\"指标2\",\"type\":1,\"id\":0,\"value\":2}]}";
+        String freshExpression2 = "{\"name\":\"指标3\",\"type\":36,\"id\":1,\"value\":[{\"name\":\"指标1\",\"type\":1,\"id\":0,\"value\":1},{\"name\":\"指标2\",\"type\":1,\"id\":0,\"value\":2}]}";
         p2 = lexerService.tokenOf(freshExpression2);
         c2 = lexerService.tokenOf(freshExpression2);
 
-        String freshExpression3 = "{\"name\":\"指标2\",\"type\":35,\"id\":2,\"value\":[{\"name\":\"运算式1\",\"type\":36,\"id\":1,\"value\":null}]}";
+        String freshExpression3 = "{\"name\":\"指标2\",\"type\":36,\"id\":2,\"value\":[{\"name\":\"运算式1\",\"type\":37,\"id\":1,\"value\":null}]}";
         p3 = lexerService.tokenOf(freshExpression3);
-        String freshExpression3C = "{\"name\":\"指标2\",\"type\":35,\"id\":2,\"value\":[{\"name\":\"指标1\",\"type\":1,\"id\":0,\"value\":1}]}";
+        String freshExpression3C = "{\"name\":\"指标2\",\"type\":36,\"id\":2,\"value\":[{\"name\":\"指标1\",\"type\":1,\"id\":0,\"value\":1}]}";
         c3 = lexerService.tokenOf(freshExpression3C);
 
-        String freshExpression4 = "{\"name\":\"指标2\",\"type\":35,\"id\":2,\"value\":[{\"name\":\"运算式1\",\"type\":36,\"id\":2,\"value\":null}]}";
+        String freshExpression4 = "{\"name\":\"指标2\",\"type\":36,\"id\":2,\"value\":[{\"name\":\"运算式1\",\"type\":37,\"id\":2,\"value\":null}]}";
         p4 = lexerService.tokenOf(freshExpression4);
-        String freshExpression4C = "{\"name\":\"指标2\",\"type\":35,\"id\":2,\"value\":[{\"id\":2,\"name\":\"指标2\",\"type\":35,\"value\":[{\"id\":0,\"name\":\"指标1\",\"type\":1,\"value\":1}]}]}";
+        String freshExpression4C = "{\"name\":\"指标2\",\"type\":36,\"id\":2,\"value\":[{\"id\":2,\"name\":\"指标2\",\"type\":36,\"value\":[{\"id\":0,\"name\":\"指标1\",\"type\":1,\"value\":1}]}]}";
         c4 = lexerService.tokenOf(freshExpression4C);
 
-        String freshExpression5 = "{\"name\":\"指标2\",\"type\":35,\"id\":2,\"value\":[{\"name\":\"运算式1\",\"type\":36,\"id\":-1,\"value\":null}]}";
+        String freshExpression5 = "{\"name\":\"指标2\",\"type\":36,\"id\":2,\"value\":[{\"name\":\"运算式1\",\"type\":37,\"id\":-1,\"value\":null}]}";
         p5 = lexerService.tokenOf(freshExpression5);
-        String freshExpression5C = "{\"name\":\"指标2\",\"type\":35,\"id\":2,\"value\":[{\"name\":\"指标1\",\"type\":1,\"id\":0,\"value\":1}]}";
+        String freshExpression5C = "{\"name\":\"指标2\",\"type\":36,\"id\":2,\"value\":[{\"name\":\"指标1\",\"type\":1,\"id\":0,\"value\":1}]}";
         c5 = lexerService.tokenOf(freshExpression5C);
     }
 

@@ -21,7 +21,7 @@ public class LogicalAndTest {
     private ParamContext paramContext;
 
     @Before
-    public void setUp() {
+    public void setUp() throws Exception {
         target = LogicalAnd.of();
 
         op0 = VariableBool.of("t");

@@ -92,4 +92,8 @@ public class Operation<R, V> implements ComparableValuable<R> {
         }
         return true;
     }
+
+    public void postParse() {
+        operator.postParse(children);
+    }
 }

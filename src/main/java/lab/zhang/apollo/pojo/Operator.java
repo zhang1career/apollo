@@ -13,6 +13,7 @@ import java.util.Map;
  */
 abstract public class Operator<R, V> implements Calculable<R, V> {
 
+    //@todo delete singleton cache
     static protected Map<Integer, Operator<?, ?>> instanceMap = new HashMap<>();
 
 
@@ -50,6 +51,9 @@ abstract public class Operator<R, V> implements Calculable<R, V> {
     protected String[] getRequiredParams() {
         return null;
     }
+
+
+    public <T> void postParse(List<? extends Valuable<T>> children) {}
 
     /**
      * Do the calculation

@@ -1,8 +1,8 @@
 package unit.lab.zhang.apollo.service;
 
 import lab.zhang.apollo.pojo.ApolloType;
-import lab.zhang.apollo.pojo.ParamContext;
 import lab.zhang.apollo.pojo.Operation;
+import lab.zhang.apollo.pojo.ParamContext;
 import lab.zhang.apollo.pojo.Token;
 import lab.zhang.apollo.pojo.operands.instants.InstantBool;
 import lab.zhang.apollo.pojo.operands.instants.InstantInt;
@@ -16,9 +16,8 @@ import lab.zhang.apollo.pojo.operators.arithmetics.Addition;
 import lab.zhang.apollo.pojo.operators.comparators.GreaterThan;
 import lab.zhang.apollo.pojo.operators.logics.LogicalEqualTo;
 import lab.zhang.apollo.pojo.operators.logics.LogicalOr;
-import unit.lab.zhang.apollo.repo.operator.ExternalOperatorRepo;
 import lab.zhang.apollo.service.LexerService;
-import lab.zhang.apollo.service.ParserService;
+import lab.zhang.apollo.service.ParseService;
 import lab.zhang.apollo.service.lexer.BasicLexerService;
 import lab.zhang.apollo.util.CastUtil;
 import org.assertj.core.util.Lists;
@@ -26,13 +25,14 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
+import unit.lab.zhang.apollo.repo.operator.ExternalOperatorRepo;
 
 import static org.junit.Assert.*;
 
-public class ParserServiceTest {
+public class ParseServiceTest {
 
     private LexerService lexerService;
-    private ParserService parserService;
+    private ParseService parseService;
 
     @Rule
     public ExpectedException expectedEx = ExpectedException.none();
@@ -40,14 +40,14 @@ public class ParserServiceTest {
     @Before
     public void setUp() {
         lexerService = new BasicLexerService();
-        parserService = new ParserService(new ExternalOperatorRepo());
+        parseService = new ParseService(new ExternalOperatorRepo());
     }
 
     @Test
-    public void test_valuableOf_operand() {
+    public void test_valuableOf_operand() throws Exception {
         String inputCond = "{\"name\":\"在【赠礼】名单中\",\"type\":10,\"value\":\"isInGiftNamelist\"}";
         Token token = lexerService.tokenOf(inputCond);
-        VariableBool parsed = CastUtil.from(parserService.valuableOf(token));
+        VariableBool parsed = CastUtil.from(parseService.valuableOf(token));
         assertNotNull(parsed);
 
         VariableBool created = VariableBool.of("isInGiftNamelist");
@@ -59,12 +59,12 @@ public class ParserServiceTest {
     }
 
     @Test
-    public void test_valuableOf_simpleOperation() {
+    public void test_valuableOf_simpleOperation() throws Exception {
         String inputCond = String.format(
                 "{\"name\":\"=\",\"type\":%d,\"value\":[{\"name\":\"在【赠礼】名单中\",\"type\":10,\"value\":\"isInGiftNamelist\"},{\"name\":\"真\",\"type\":0,\"value\":true}]}",
                 ApolloType.LOGICAL_EQUAL_TO.getId());
         Token token = lexerService.tokenOf(inputCond);
-        Operation<Boolean, Boolean> parsed = CastUtil.from(parserService.valuableOf(token));
+        Operation<Boolean, Boolean> parsed = CastUtil.from(parseService.valuableOf(token));
         assertNotNull(parsed);
 
         VariableBool op1 = VariableBool.of("isInGiftNamelist");
@@ -81,12 +81,12 @@ public class ParserServiceTest {
     }
 
     @Test
-    public void test_valuableOf_sortedOperation() {
+    public void test_valuableOf_sortedOperation() throws Exception {
         String inputCond = String.format(
                 "{\"name\":\"+\",\"type\":%d,\"value\":[{\"name\":\"2\",\"type\":1,\"value\":2},{\"name\":\"1\",\"type\":1,\"value\":1}]}",
                 ApolloType.ADDITION_INT.getId());
         Token token = lexerService.tokenOf(inputCond);
-        Operation<Integer, Integer> parsed = CastUtil.from(parserService.valuableOf(token));
+        Operation<Integer, Integer> parsed = CastUtil.from(parseService.valuableOf(token));
         assertNotNull(parsed);
 
         InstantInt op1 = InstantInt.of(1);
@@ -99,14 +99,14 @@ public class ParserServiceTest {
     }
 
     @Test
-    public void test_valuableOf_complexOperation() {
+    public void test_valuableOf_complexOperation() throws Exception {
         String inputCond = String.format(
                 "{\"name\":\"or\",\"type\":%d,\"value\":[{\"name\":\"=\",\"type\":%d,\"value\":[{\"name\":\"在【赠礼】名单中\",\"type\":10,\"value\":\"isInGiftNamelist\"},{\"name\":\"真\",\"type\":0,\"value\":true}]},{\"name\":\">\",\"type\":%d,\"value\":[{\"name\":\"年龄\",\"type\":11,\"value\":\"age\"},{\"name\":\"18\",\"type\":1,\"value\":18}]}]}",
                 ApolloType.LOGICAL_OR.getId(),
                 ApolloType.LOGICAL_EQUAL_TO.getId(),
                 ApolloType.GREATER_THAN.getId());
         Token token = lexerService.tokenOf(inputCond);
-        Operation<Boolean, Boolean> parsed = CastUtil.from(parserService.valuableOf(token));
+        Operation<Boolean, Boolean> parsed = CastUtil.from(parseService.valuableOf(token));
         assertNotNull(parsed);
 
         VariableBool op11 = VariableBool.of("isInGiftNamelist");

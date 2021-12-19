@@ -59,4 +59,9 @@ public class BaseRepo {
         }
         return sqlSession;
     }
+
+
+    public interface Convertible<P, R> {
+        R covertFrom(P param);
+    }
 }

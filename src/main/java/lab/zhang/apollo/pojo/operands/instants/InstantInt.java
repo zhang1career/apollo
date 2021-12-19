@@ -2,32 +2,20 @@ package lab.zhang.apollo.pojo.operands.instants;
 
 import lab.zhang.apollo.bo.Valuable;
 import lab.zhang.apollo.pojo.ApolloType;
-import lab.zhang.apollo.pojo.Operand;
 import lab.zhang.apollo.pojo.operands.Instant;
 import lab.zhang.apollo.pojo.operands.variables.VariableInt;
-import lab.zhang.apollo.util.CastUtil;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
-
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * @author zhangrj
  */
 public class InstantInt extends Instant<Integer> {
-
-    static private final ApolloType TYPE = ApolloType.INSTANT_INT;
-
-    static protected Map<Integer, Operand<?, ?>> instanceMap = new HashMap<>();
-
     @NotNull
     @Contract("_ -> new")
-    static public InstantInt of(Integer value) {
-        if (!instanceMap.containsKey(value)) {
-            instanceMap.put(value, new InstantInt(value));
-        }
-        return CastUtil.from(instanceMap.get(value));
+    static public InstantInt of(Object obj) {
+        int value = parseInteger(obj);
+        return new InstantInt(value);
     }
 
     private InstantInt(Integer value) {

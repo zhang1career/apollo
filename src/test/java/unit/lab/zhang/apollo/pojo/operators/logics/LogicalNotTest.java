@@ -11,6 +11,8 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
+import java.util.concurrent.ExecutionException;
+
 import static org.junit.Assert.*;
 
 public class LogicalNotTest {
@@ -26,7 +28,7 @@ public class LogicalNotTest {
     public ExpectedException expectedEx = ExpectedException.none();
 
     @Before
-    public void setUp() {
+    public void setUp() throws ExecutionException {
         target = LogicalNot.of();
 
         op0 = VariableBool.of("t");

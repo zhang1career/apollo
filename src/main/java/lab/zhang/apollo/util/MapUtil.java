@@ -9,7 +9,6 @@ import java.util.Map;
  * @author zhangrj
  */
 public class MapUtil {
-
     static public <K, V> boolean isNill(Map<K, V> map) {
         return map == null || map.size() <= 0;
     }
@@ -30,5 +29,16 @@ public class MapUtil {
         }
 
         return ret;
+    }
+
+    public static Map<String, Object> parseMap(Object obj) {
+        if (obj instanceof Map) {
+            return (Map<String, Object>) obj;
+        }
+        throw new RuntimeException("The param type is wrong");
+    }
+
+    private MapUtil() {
+        throw new AssertionError();
     }
 }

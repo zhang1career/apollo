@@ -1,5 +1,6 @@
 package lab.zhang.apollo.pojo;
 
+import lab.zhang.apollo.bo.Valuable;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -16,7 +17,7 @@ public class CompileContext {
 
     private Set<Operand<?, String>> requiredOperandSet;
 
-    protected List<List<Operation<?, ?>>> operationList;
+    protected List<List<Valuable<?>>> operationList;
 
 
     public CompileContext(int level) {
@@ -38,7 +39,7 @@ public class CompileContext {
         return operationList.size();
     }
 
-    public List<Operation<?, ?>> getOperationListOfLevel(int level) {
+    public List<Valuable<?>> getOperationListOfLevel(int level) {
         enlargeOperationList(level);
         return operationList.get(level);
     }

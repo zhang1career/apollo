@@ -6,6 +6,8 @@ import lab.zhang.apollo.pojo.operands.variables.VariableBool;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.concurrent.ExecutionException;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 
@@ -21,7 +23,7 @@ public class VariableBoolTest {
     private InstantBool bool11;
 
     @Before
-    public void setUp() {
+    public void setUp() throws ExecutionException {
         paramContext = new ParamContext();
 
         paramContext.putValue("true", true);

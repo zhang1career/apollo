@@ -2,9 +2,12 @@ package lab.zhang.apollo.pojo;
 
 import lab.zhang.apollo.bo.ComparableValuable;
 import lab.zhang.apollo.bo.Readable;
-import lab.zhang.apollo.util.HashUtil;
+import lab.zhang.apollo.util.*;
 import lombok.Data;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author zhangrj
@@ -16,8 +19,53 @@ abstract public class Operand<V, N> implements ComparableValuable<V> {
         return type.getId() ^ HashUtil.codeFrom(value);
     }
 
+    static protected Object[] parseArray(Object obj) {
+        if (obj == null) {
+            return new Object[]{};
+        }
+        return ArrayUtil.parseArray(obj);
+    }
+
+    static protected boolean parseBoolean(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        return BoolUtil.parseBoolean(obj);
+    }
+
+    static protected int parseInteger(Object obj) {
+        if (obj == null) {
+            return 0;
+        }
+        return NumberUtil.parseInteger(obj);
+    }
+
+    static protected long parseLong(Object obj) {
+        if (obj == null) {
+            return 0;
+        }
+        return NumberUtil.parseLong(obj);
+    }
+
+    static protected Map<String, Object> parseMap(Object obj) {
+        if (obj == null) {
+            return new HashMap<>(0);
+        }
+        return MapUtil.parseMap(obj);
+    }
+
+    static protected String parseString(Object obj) {
+        if (obj == null) {
+            return "";
+        }
+        return StrUtil.parseString(obj);
+    }
+
+    protected volatile Map<String, Object> temp = new HashMap<>();
+
     protected ApolloType type;
 
+    //@todo remmove getter
     protected N value;
 
     protected Readable<V, N> reader;

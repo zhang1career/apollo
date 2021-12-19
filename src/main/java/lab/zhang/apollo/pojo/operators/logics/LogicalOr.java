@@ -34,7 +34,11 @@ public class LogicalOr extends SortableOperator<Boolean, Boolean> {
     @Override
     protected Boolean doCalc(@NotNull List<? extends Valuable<Boolean>> operands, ParamContext paramContext) {
         for (Valuable<Boolean> operand : operands) {
-            if (operand.getValue(paramContext)) {
+            Boolean value = operand.getValue(paramContext);
+            if (value == null) {
+                continue;
+            }
+            if (value) {
                 return true;
             }
         }

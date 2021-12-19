@@ -22,7 +22,7 @@ public class ApolloControllerTest {
     }
 
     @Test
-    public void test_eval() {
+    public void test_eval() throws Exception {
         String inputCond = String.format(
                 "{\"id\":0,\"name\":\"+\",\"type\":%d,\"value\":[{\"id\":0,\"name\":\"2\",\"type\":1,\"value\":2},{\"id\":0,\"name\":\"1\",\"type\":1,\"value\":1}]}",
                 ApolloType.ADDITION_INT.getId());

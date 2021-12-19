@@ -3,9 +3,9 @@ package lab.zhang.apollo.service.exe;
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
+import lab.zhang.apollo.bo.Valuable;
 import lab.zhang.apollo.pojo.CompileContext;
 import lab.zhang.apollo.pojo.ExeContext;
-import lab.zhang.apollo.pojo.Operation;
 import lab.zhang.apollo.pojo.ParamContext;
 import lab.zhang.apollo.service.ExeService;
 import lab.zhang.apollo.util.CastUtil;
@@ -35,9 +35,9 @@ public class CachedExeService<R> extends ExeService<R> {
                     .build(CacheLoader.from(CachedExeService::getResult));
 
     static protected Object getResult(@NotNull ExeContext exeContext) {
-        Operation<?, ?> operation = exeContext.getOperation();
+        Valuable<?> valuable = exeContext.getValuable();
         ParamContext paramContext = exeContext.getParamContext();
-        return operation.getValue(paramContext);
+        return valuable.getValue(paramContext);
     }
 
     @NotNull
@@ -54,9 +54,9 @@ public class CachedExeService<R> extends ExeService<R> {
     @Override
     public R exeValue(ParamContext paramContext) {
         Object ret = null;
-        for (List<Operation<?, ?>> operationList : compileContext.getOperationList()) {
-            for (Operation<?, ?> operation : operationList) {
-                ExeContext exeContext = new ExeContext(operation, paramContext);
+        for (List<Valuable<?>> valuableList : compileContext.getOperationList()) {
+            for (Valuable<?> valuable : valuableList) {
+                ExeContext exeContext = new ExeContext(valuable, paramContext);
                 ret = CACHE.getUnchecked(exeContext);
             }
         }

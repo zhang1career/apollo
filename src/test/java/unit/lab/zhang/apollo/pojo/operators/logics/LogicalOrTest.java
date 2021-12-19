@@ -21,7 +21,7 @@ public class LogicalOrTest {
     private ParamContext paramContext;
 
     @Before
-    public void setUp() {
+    public void setUp() throws Exception {
         target = LogicalOr.of();
 
         op0 = VariableBool.of("t");

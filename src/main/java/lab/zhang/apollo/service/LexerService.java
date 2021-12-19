@@ -10,7 +10,9 @@ import lab.zhang.apollo.util.StrUtil;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import static com.alibaba.fastjson.JSON.toJSONString;
 
@@ -64,9 +66,9 @@ abstract public class LexerService {
             throw new TokenizationException("The num of operands is wrong. type=" + token.getType() + ", card=" + childTokenList.size());
         }
         // check children type
-        List<ApolloType> typeList = getApolloTypeList(childTokenList);
-        if (!token.getType().checkType(typeList)) {
-            throw new TokenizationException("The type of operands is wrong. type=" + token.getType() + ", typeList=" + typeList);
+        Set<ApolloType> typeSet = getApolloTypeSet(childTokenList);
+        if (!token.getType().checkType(typeSet)) {
+            throw new TokenizationException("The type of operands is wrong. type=" + token.getType() + ", typeList=" + typeSet);
         }
         token.setValue(childTokenList);
 
@@ -95,11 +97,11 @@ abstract public class LexerService {
     }
 
     @NotNull
-    private List<ApolloType> getApolloTypeList(@NotNull List<Token> childrenToken) {
-        List<ApolloType> types = new ArrayList<>();
-        for (Token childToken : childrenToken) {
-            types.add(childToken.getType());
+    private Set<ApolloType> getApolloTypeSet(@NotNull List<Token> childTokenList) {
+        Set<ApolloType> typeSet = new HashSet<>();
+        for (Token childToken : childTokenList) {
+            typeSet.add(childToken.getType());
         }
-        return types;
+        return typeSet;
     }
 }

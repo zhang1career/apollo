@@ -1,5 +1,6 @@
 package lab.zhang.apollo.pojo;
 
+import lab.zhang.apollo.bo.Valuable;
 import lab.zhang.apollo.util.HashUtil;
 import lombok.Data;
 import org.jetbrains.annotations.NotNull;
@@ -11,18 +12,23 @@ import org.jetbrains.annotations.NotNull;
 public class ExeContext {
     static private final int HASH_SALT = 0x54108879;
 
-    private Operation<?, ?> operation;
+    private Valuable<?> valuable;
     private ParamContext paramContext;
 
 
-    public ExeContext(@NotNull Operation<?, ?> operation, ParamContext paramContext) {
-        this.operation = operation;
-        this.paramContext = ParamContext.requiredFrom(operation.getOperator(), paramContext);
+    public ExeContext(@NotNull Valuable<?> valuable, ParamContext paramContext) {
+        this.valuable = valuable;
+
+        Operator<?, ?> operator = null;
+        if (valuable instanceof Operation) {
+            operator = ((Operation<?, ?>) valuable).getOperator();
+        }
+        this.paramContext = ParamContext.requiredFrom(operator, paramContext);
     }
 
     @Override
     public int hashCode() {
-        return HashUtil.hash(operation, paramContext, HASH_SALT);
+        return HashUtil.hash(valuable, paramContext, HASH_SALT);
     }
 
     @Override
@@ -35,7 +41,7 @@ public class ExeContext {
         }
 
         ExeContext ec = (ExeContext) obj;
-        if(!operation.equals(ec.operation)) {
+        if(!valuable.equals(ec.valuable)) {
             return false;
         }
         return paramContext.equals(ec.paramContext);
