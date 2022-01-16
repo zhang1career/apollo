@@ -1,6 +1,7 @@
 package lab.zhang.apollo.bo;
 
-import lab.zhang.apollo.pojo.ParamContext;
+import lab.zhang.apollo.pojo.cofig.ExeConfig;
+import lab.zhang.apollo.pojo.context.ParamContext;
 
 import java.util.List;
 
@@ -15,7 +16,8 @@ public interface Calculable<R, V> {
      *
      * @param operands values to be calculated
      * @param paramContext some map which contains index name and value
+     * @param exeConfig The configuration of execution
      * @return result
      */
-    R calc(List<? extends Valuable<V>> operands, ParamContext paramContext);
+    R calc(List<? extends Valuable<V>> operands, ParamContext paramContext, ExeConfig exeConfig);
 }

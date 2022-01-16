@@ -1,16 +1,18 @@
 package lab.zhang.apollo.pojo;
 
 import lab.zhang.apollo.bo.Valuable;
-import lab.zhang.apollo.pojo.operands.instants.*;
-import lab.zhang.apollo.pojo.operands.variables.*;
-import lab.zhang.apollo.pojo.operations.SortedOperation;
-import lab.zhang.apollo.pojo.operations.UnsortedOperation;
-import lab.zhang.apollo.pojo.operators.arithmetics.Addition;
-import lab.zhang.apollo.pojo.operators.arithmetics.Subtraction;
-import lab.zhang.apollo.pojo.operators.comparators.*;
-import lab.zhang.apollo.pojo.operators.externals.ExternalOperator;
-import lab.zhang.apollo.pojo.operators.logics.*;
-import lab.zhang.apollo.pojo.operators.strings.StringRegMatch;
+import lab.zhang.apollo.pojo.cofig.instance.DummyExeConfig;
+import lab.zhang.apollo.pojo.context.ParamContext;
+import lab.zhang.apollo.pojo.operand.instant.*;
+import lab.zhang.apollo.pojo.operand.variable.*;
+import lab.zhang.apollo.pojo.operation.SortedOperation;
+import lab.zhang.apollo.pojo.operation.UnsortedOperation;
+import lab.zhang.apollo.pojo.operator.arithmetic.Addition;
+import lab.zhang.apollo.pojo.operator.arithmetic.Subtraction;
+import lab.zhang.apollo.pojo.operator.comparator.*;
+import lab.zhang.apollo.pojo.operator.external.ExternalOperator;
+import lab.zhang.apollo.pojo.operator.logic.*;
+import lab.zhang.apollo.pojo.operator.string.StringRegMatch;
 import lab.zhang.apollo.repo.StorableOperator;
 import lab.zhang.apollo.util.CastUtil;
 import lombok.AllArgsConstructor;
@@ -50,7 +52,7 @@ public enum ApolloType {
         }
 
         @Override
-        public Valuable<Integer> valuableOf(StorableOperator storableOperator, long id, Object value) {
+        public Valuable<Integer> valuableOf(StorableOperator storableOperator, long id, Object value) throws ExecutionException {
             return InstantInt.of(CastUtil.from(value));
         }
     },
@@ -361,7 +363,7 @@ public enum ApolloType {
         @Override
         public boolean checkValue(List<? extends Valuable<?>> operands, ParamContext paramContext) {
             Valuable<Integer> op1 = CastUtil.from(operands.get(1));
-            return op1.getValue(paramContext) != 0;
+            return op1.getValue(paramContext, DummyExeConfig.of()) != 0;
         }
 
         @Override

@@ -1,7 +1,7 @@
 package lab.zhang.apollo.service;
 
 import lab.zhang.apollo.bo.Valuable;
-import lab.zhang.apollo.pojo.CompileContext;
+import lab.zhang.apollo.pojo.context.CompileContext;
 import lab.zhang.apollo.pojo.Operation;
 import lombok.NoArgsConstructor;
 import org.jetbrains.annotations.NotNull;
@@ -15,7 +15,9 @@ import java.util.List;
 @NoArgsConstructor
 abstract public class OptimService {
     public CompileContext optimize(Operation<?, ?> root) {
-        return dfs(root);
+        CompileContext compileContext = dfs(root);
+        compileContext.setOriginalOperationNode(root);
+        return compileContext;
     }
 
     private CompileContext dfs(@NotNull Operation<?, ?> root) {
@@ -23,7 +25,7 @@ abstract public class OptimService {
 
         if (root.isLeaf()) {
             travel(root, context);
-            return this.postTravel(root, context);
+            return postTravel(root, context);
         }
 
         List<CompileContext> contextList = new ArrayList<>();

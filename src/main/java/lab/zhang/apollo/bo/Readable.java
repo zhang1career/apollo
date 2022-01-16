@@ -1,6 +1,6 @@
 package lab.zhang.apollo.bo;
 
-import lab.zhang.apollo.pojo.ParamContext;
+import lab.zhang.apollo.pojo.context.ParamContext;
 
 /**
  * @author zhangrj

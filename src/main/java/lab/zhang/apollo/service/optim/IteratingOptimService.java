@@ -1,11 +1,8 @@
 package lab.zhang.apollo.service.optim;
 
-import lab.zhang.apollo.bo.Valuable;
-import lab.zhang.apollo.pojo.CompileContext;
+import lab.zhang.apollo.pojo.context.CompileContext;
 import lab.zhang.apollo.pojo.Operation;
-import lab.zhang.apollo.pojo.operands.Variable;
 import lab.zhang.apollo.service.OptimService;
-import lab.zhang.apollo.util.CastUtil;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
@@ -21,20 +18,14 @@ public class IteratingOptimService extends OptimService {
 
     @Override
     protected void travel(@NotNull Operation<?, ?> node, CompileContext context) {
-        if (node.getChildren() == null) {
-            return;
-        }
-        for (Valuable<?> operand : node.getChildren()) {
-            if (!(operand instanceof Variable)) {
-                continue;
-            }
-            context.getRequiredOperandSet().add(CastUtil.from(operand));
+        if (node.getChildren() != null) {
+            context.requiredOperandSetAddAll(node.getChildren());
         }
     }
 
     @Override
     protected CompileContext postTravel(Operation<?, ?> node, @NotNull CompileContext context) {
-        context.getOperationListOfLevel(context.getLevel()).add(node);
+        context.getPrimaryOperationListOfLevel(context.getLevel()).add(node);
         return context;
     }
 
@@ -48,11 +39,11 @@ public class IteratingOptimService extends OptimService {
 
             mergedContext.getRequiredOperandSet().addAll(context.getRequiredOperandSet());
 
-            for (int i = 0; i < Math.max(mergedContext.getOperationListSize(), context.getOperationListSize()); i++) {
-                if (i >= context.getOperationListSize()) {
+            for (int i = 0; i < Math.max(mergedContext.getPrimaryOperationListSize(), context.getPrimaryOperationListSize()); i++) {
+                if (i >= context.getPrimaryOperationListSize()) {
                     break;
                 }
-                mergedContext.getOperationListOfLevel(i).addAll(context.getOperationListOfLevel(i));
+                mergedContext.getPrimaryOperationListOfLevel(i).addAll(context.getPrimaryOperationListOfLevel(i));
             }
         }
         return mergedContext;

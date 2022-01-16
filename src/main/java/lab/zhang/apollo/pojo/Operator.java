@@ -3,6 +3,8 @@ package lab.zhang.apollo.pojo;
 import lab.zhang.apollo.bo.Calculable;
 import lab.zhang.apollo.bo.Valuable;
 import lab.zhang.apollo.exception.CalculationException;
+import lab.zhang.apollo.pojo.cofig.ExeConfig;
+import lab.zhang.apollo.pojo.context.ParamContext;
 
 import java.util.HashMap;
 import java.util.List;
@@ -13,8 +15,7 @@ import java.util.Map;
  */
 abstract public class Operator<R, V> implements Calculable<R, V> {
 
-    //@todo delete singleton cache
-    static protected Map<Integer, Operator<?, ?>> instanceMap = new HashMap<>();
+    static protected Map<ApolloType, Operator<?, ?>> INSTANCE_CACHE = new HashMap<>();
 
 
     protected ApolloType type;
@@ -24,9 +25,9 @@ abstract public class Operator<R, V> implements Calculable<R, V> {
     }
 
     @Override
-    public R calc(List<? extends Valuable<V>> operands, ParamContext paramContext) {
+    public R calc(List<? extends Valuable<V>> operands, ParamContext paramContext, ExeConfig exeConfig) {
         check(operands, paramContext);
-        return doCalc(operands, paramContext);
+        return doCalc(operands, paramContext, exeConfig);
     }
 
     protected void check(List<? extends Valuable<?>> operands, ParamContext paramContext) {
@@ -48,7 +49,7 @@ abstract public class Operator<R, V> implements Calculable<R, V> {
         }
     }
 
-    protected String[] getRequiredParams() {
+    public String[] getRequiredParams() {
         return null;
     }
 
@@ -59,9 +60,10 @@ abstract public class Operator<R, V> implements Calculable<R, V> {
      * Do the calculation
      * @param operands the operands which are to be calculated
      * @param paramContext some map which contains index name and value
+     * @param exeConfig The configuration of execution
      * @return the result of calculation
      */
-    abstract protected R doCalc(List<? extends Valuable<V>> operands, ParamContext paramContext);
+    abstract protected R doCalc(List<? extends Valuable<V>> operands, ParamContext paramContext, ExeConfig exeConfig);
 
     @Override
     public int hashCode() {

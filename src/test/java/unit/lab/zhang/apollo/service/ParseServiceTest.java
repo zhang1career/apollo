@@ -1,21 +1,23 @@
 package unit.lab.zhang.apollo.service;
 
 import lab.zhang.apollo.pojo.ApolloType;
-import lab.zhang.apollo.pojo.Operation;
-import lab.zhang.apollo.pojo.ParamContext;
 import lab.zhang.apollo.pojo.Token;
-import lab.zhang.apollo.pojo.operands.instants.InstantBool;
-import lab.zhang.apollo.pojo.operands.instants.InstantInt;
-import lab.zhang.apollo.pojo.operands.variables.VariableBool;
-import lab.zhang.apollo.pojo.operands.variables.VariableInt;
-import lab.zhang.apollo.pojo.operations.SortedOperation;
-import lab.zhang.apollo.pojo.operations.UnsortedOperation;
-import lab.zhang.apollo.pojo.operators.SortableOperator;
-import lab.zhang.apollo.pojo.operators.UnsortableOperator;
-import lab.zhang.apollo.pojo.operators.arithmetics.Addition;
-import lab.zhang.apollo.pojo.operators.comparators.GreaterThan;
-import lab.zhang.apollo.pojo.operators.logics.LogicalEqualTo;
-import lab.zhang.apollo.pojo.operators.logics.LogicalOr;
+import lab.zhang.apollo.pojo.cofig.ExeConfig;
+import lab.zhang.apollo.pojo.cofig.instance.UncachedExeConfig;
+import lab.zhang.apollo.pojo.context.ParamContext;
+import lab.zhang.apollo.pojo.operand.instant.InstantBool;
+import lab.zhang.apollo.pojo.operand.instant.InstantInt;
+import lab.zhang.apollo.pojo.operand.variable.VariableBool;
+import lab.zhang.apollo.pojo.operand.variable.VariableInt;
+import lab.zhang.apollo.pojo.Operation;
+import lab.zhang.apollo.pojo.operation.SortedOperation;
+import lab.zhang.apollo.pojo.operation.UnsortedOperation;
+import lab.zhang.apollo.pojo.operator.SortableOperator;
+import lab.zhang.apollo.pojo.operator.UnsortableOperator;
+import lab.zhang.apollo.pojo.operator.arithmetic.Addition;
+import lab.zhang.apollo.pojo.operator.comparator.GreaterThan;
+import lab.zhang.apollo.pojo.operator.logic.LogicalEqualTo;
+import lab.zhang.apollo.pojo.operator.logic.LogicalOr;
 import lab.zhang.apollo.service.LexerService;
 import lab.zhang.apollo.service.ParseService;
 import lab.zhang.apollo.service.lexer.BasicLexerService;
@@ -55,7 +57,8 @@ public class ParseServiceTest {
 
         ParamContext paramContext = new ParamContext();
         paramContext.putValue("isInGiftNamelist", false);
-        assertFalse(parsed.getValue(paramContext));
+        ExeConfig exeConfig = UncachedExeConfig.of();
+        assertFalse(parsed.getValue(paramContext, exeConfig));
     }
 
     @Test
@@ -73,11 +76,13 @@ public class ParseServiceTest {
         SortedOperation<Boolean, Boolean> created = SortedOperation.of(tor, Lists.list(op1, op2));
         assertEquals(created, parsed);
 
+        ExeConfig exeConfig = UncachedExeConfig.of();
         ParamContext paramContext = new ParamContext();
         paramContext.putValue("isInGiftNamelist", true);
-        assertTrue(parsed.getValue(paramContext));
+        assertTrue(parsed.getValue(paramContext, exeConfig));
+
         paramContext.putValue("isInGiftNamelist", false);
-        assertFalse(parsed.getValue(paramContext));
+        assertFalse(parsed.getValue(paramContext, exeConfig));
     }
 
     @Test
@@ -95,7 +100,8 @@ public class ParseServiceTest {
         SortedOperation<Integer, Integer> created = SortedOperation.of(tor, Lists.list(op1, op2));
         assertEquals(created, parsed);
 
-        assertEquals(3, parsed.getValue(null).intValue());
+        ExeConfig exeConfig = UncachedExeConfig.of();
+        assertEquals(3, parsed.getValue(null, exeConfig).intValue());
     }
 
     @Test
@@ -124,14 +130,16 @@ public class ParseServiceTest {
         ParamContext paramContext = new ParamContext();
         paramContext.putValue("isInGiftNamelist", true);
         paramContext.putValue("age", 20);
-        assertTrue(parsed.getValue(paramContext));
+        ExeConfig exeConfig = UncachedExeConfig.of();
+
+        assertTrue(parsed.getValue(paramContext, exeConfig));
 
         paramContext.putValue("isInGiftNamelist", false);
         paramContext.putValue("age", 20);
-        assertTrue(parsed.getValue(paramContext));
+        assertTrue(parsed.getValue(paramContext, exeConfig));
 
         paramContext.putValue("isInGiftNamelist", false);
         paramContext.putValue("age", 17);
-        assertFalse(parsed.getValue(paramContext));
+        assertFalse(parsed.getValue(paramContext, exeConfig));
     }
 }

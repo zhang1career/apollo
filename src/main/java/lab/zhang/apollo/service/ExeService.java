@@ -1,15 +1,12 @@
 package lab.zhang.apollo.service;
 
-import lab.zhang.apollo.bo.Valuable;
-import lab.zhang.apollo.pojo.CompileContext;
-import lab.zhang.apollo.pojo.ParamContext;
-
-import javax.annotation.Nullable;
+import lab.zhang.apollo.pojo.context.CompileContext;
+import lab.zhang.apollo.pojo.context.ParamContext;
 
 /**
  * @author zhangrj
  */
-abstract public class ExeService<R> implements Valuable<R> {
+abstract public class ExeService<R> {
 
     protected final CompileContext compileContext;
 
@@ -18,10 +15,8 @@ abstract public class ExeService<R> implements Valuable<R> {
     }
 
 
-    @Override
-    @Nullable
     public R getValue(ParamContext paramContext) {
-        return exeValue(paramContext);
+        return doValue(paramContext);
     }
 
     /**
@@ -29,6 +24,5 @@ abstract public class ExeService<R> implements Valuable<R> {
      * @param paramContext The context that holds indices
      * @return the result of calculation
      */
-    @Nullable
-    abstract public R exeValue(ParamContext paramContext);
+    abstract protected R doValue(ParamContext paramContext);
 }

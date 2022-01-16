@@ -1,8 +1,8 @@
 package lab.zhang.apollo.controller;
 
-import lab.zhang.apollo.pojo.CompileContext;
+import lab.zhang.apollo.pojo.context.CompileContext;
 import lab.zhang.apollo.pojo.Operation;
-import lab.zhang.apollo.pojo.ParamContext;
+import lab.zhang.apollo.pojo.context.ParamContext;
 import lab.zhang.apollo.pojo.Token;
 import lab.zhang.apollo.repo.StorableExpression;
 import lab.zhang.apollo.repo.StorableOperator;
@@ -13,7 +13,6 @@ import lab.zhang.apollo.service.optim.IteratingOptimService;
 import lab.zhang.apollo.util.CastUtil;
 import lombok.extern.slf4j.Slf4j;
 
-import javax.annotation.Nullable;
 import java.util.concurrent.ExecutionException;
 
 /**
@@ -33,7 +32,6 @@ public class ApolloController {
         planService = new PlanService(storableExpression);
     }
 
-    @Nullable
     public Object eval(String inputCond, ParamContext paramContext) throws ExecutionException {
         Token plannedToken = lexerService.tokenOf(inputCond);
         return compileAndRun(plannedToken, paramContext);
@@ -46,7 +44,6 @@ public class ApolloController {
         return compileAndRun(plannedToken, paramContext);
     }
 
-    @Nullable
     private <R> R compileAndRun(Token plannedToken, ParamContext paramContext) throws ExecutionException {
         log.info("world");
         Operation<Object, Object> parsed = CastUtil.from(parseService.valuableOf(plannedToken));

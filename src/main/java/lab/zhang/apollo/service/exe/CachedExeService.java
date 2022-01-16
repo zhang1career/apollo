@@ -4,9 +4,10 @@ import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
 import lab.zhang.apollo.bo.Valuable;
-import lab.zhang.apollo.pojo.CompileContext;
-import lab.zhang.apollo.pojo.ExeContext;
-import lab.zhang.apollo.pojo.ParamContext;
+import lab.zhang.apollo.pojo.cofig.instance.UncachedExeConfig;
+import lab.zhang.apollo.pojo.context.CompileContext;
+import lab.zhang.apollo.pojo.context.ExeContext;
+import lab.zhang.apollo.pojo.context.ParamContext;
 import lab.zhang.apollo.service.ExeService;
 import lab.zhang.apollo.util.CastUtil;
 import org.jetbrains.annotations.Contract;
@@ -37,7 +38,7 @@ public class CachedExeService<R> extends ExeService<R> {
     static protected Object getResult(@NotNull ExeContext exeContext) {
         Valuable<?> valuable = exeContext.getValuable();
         ParamContext paramContext = exeContext.getParamContext();
-        return valuable.getValue(paramContext);
+        return valuable.getValue(paramContext, UncachedExeConfig.of());
     }
 
     @NotNull
@@ -52,9 +53,9 @@ public class CachedExeService<R> extends ExeService<R> {
     }
 
     @Override
-    public R exeValue(ParamContext paramContext) {
+    protected R doValue(ParamContext paramContext) {
         Object ret = null;
-        for (List<Valuable<?>> valuableList : compileContext.getOperationList()) {
+        for (List<Valuable<?>> valuableList : compileContext.getPrimaryOperationList()) {
             for (Valuable<?> valuable : valuableList) {
                 ExeContext exeContext = new ExeContext(valuable, paramContext);
                 ret = CACHE.getUnchecked(exeContext);

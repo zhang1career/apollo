@@ -2,6 +2,8 @@ package lab.zhang.apollo.pojo;
 
 import lab.zhang.apollo.bo.ComparableValuable;
 import lab.zhang.apollo.bo.Valuable;
+import lab.zhang.apollo.pojo.cofig.ExeConfig;
+import lab.zhang.apollo.pojo.context.ParamContext;
 import lab.zhang.apollo.util.HashUtil;
 import lombok.Getter;
 import lombok.Setter;
@@ -16,30 +18,53 @@ import java.util.List;
 @Setter
 public class Operation<R, V> implements ComparableValuable<R> {
 
-    static private final int HASH_SALT = 0x96A55A69;
+    private R cache;
 
     protected Operator<R, V> operator;
 
     protected List<? extends Valuable<V>> children;
 
+
+    static private final int HASH_SALT = 0x96A55A69;
     boolean cacheOn = false;
 
 
     protected Operation(Operator<R, V> operator, List<? extends Valuable<V>> children) {
         this.operator = operator;
         this.children = children;
-    }
-
-    public void setChildren(List<? extends Valuable<V>> children) {
-        this.children = children;
+        cache = null;
     }
 
     @Override
-    public R getValue(ParamContext paramContext) {
-        if (operator == null) {
-            return null;
+    public R getValue(ParamContext paramContext, ExeConfig exeConfig) {
+        if (!exeConfig.isRecursive()) {
+            return cache;
         }
-        return operator.calc(children, paramContext);
+
+        return getCachedValue(paramContext, exeConfig);
+    }
+
+    private R getCachedValue(ParamContext paramContext, ExeConfig exeConfig) {
+        if (!exeConfig.isUseCache()) {
+            return operator.calc(children, paramContext, exeConfig);
+        }
+
+        if (cache == null) {
+            cache = operator.calc(children, paramContext, exeConfig);
+        }
+        return cache;
+    }
+
+    public boolean isLeaf() {
+        if (children == null) {
+            return true;
+        }
+        for (Valuable<V> operand : children) {
+            if (operand instanceof Operation) {
+                return false;
+            }
+        }
+        return true;
     }
 
     @Override
@@ -75,18 +100,6 @@ public class Operation<R, V> implements ComparableValuable<R> {
         }
         for (int i = 0; i < children.size(); i++) {
             if (!children.get(i).equals(op.getChildren().get(i))) {
-                return false;
-            }
-        }
-        return true;
-    }
-
-    public boolean isLeaf() {
-        if (children == null) {
-            return true;
-        }
-        for (Valuable<V> operand : children) {
-            if (operand instanceof Operation) {
                 return false;
             }
         }

@@ -2,6 +2,8 @@ package lab.zhang.apollo.pojo;
 
 import lab.zhang.apollo.bo.ComparableValuable;
 import lab.zhang.apollo.bo.Readable;
+import lab.zhang.apollo.pojo.cofig.ExeConfig;
+import lab.zhang.apollo.pojo.context.ParamContext;
 import lab.zhang.apollo.util.*;
 import lombok.Data;
 import org.jetbrains.annotations.NotNull;
@@ -79,7 +81,7 @@ abstract public class Operand<V, N> implements ComparableValuable<V> {
 
 
     @Override
-    public V getValue(ParamContext paramContext) {
+    public V getValue(ParamContext paramContext, ExeConfig exeConfig) {
         return reader.read(value, paramContext);
     }
 

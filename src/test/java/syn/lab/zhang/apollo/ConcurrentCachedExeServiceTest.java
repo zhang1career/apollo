@@ -1,11 +1,11 @@
 package syn.lab.zhang.apollo;
 
-import lab.zhang.apollo.pojo.CompileContext;
-import lab.zhang.apollo.pojo.ParamContext;
-import lab.zhang.apollo.pojo.operands.instants.InstantInt;
-import lab.zhang.apollo.pojo.operations.SortedOperation;
-import lab.zhang.apollo.pojo.operators.SortableOperator;
-import lab.zhang.apollo.pojo.operators.arithmetics.Addition;
+import lab.zhang.apollo.pojo.context.CompileContext;
+import lab.zhang.apollo.pojo.context.ParamContext;
+import lab.zhang.apollo.pojo.operand.instant.InstantInt;
+import lab.zhang.apollo.pojo.operation.SortedOperation;
+import lab.zhang.apollo.pojo.operator.SortableOperator;
+import lab.zhang.apollo.pojo.operator.arithmetic.Addition;
 import lab.zhang.apollo.service.ExeService;
 import lab.zhang.apollo.service.exe.ConcurrentCachedExeService;
 import lab.zhang.apollo.service.optim.IteratingOptimService;
@@ -19,7 +19,7 @@ public class ConcurrentCachedExeServiceTest {
     private ExeService<Integer> target2;
 
     @Before
-    public void setUp() {
+    public void setUp() throws Exception {
         paramContext = new ParamContext();
         IteratingOptimService analyzer = new IteratingOptimService();
 
