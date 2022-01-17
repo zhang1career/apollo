@@ -1,5 +1,6 @@
 package lab.zhang.apollo.pojo.cofig;
 
+import lab.zhang.apollo.pojo.enums.RecursiveDepthEnum;
 import lombok.Data;
 
 /**
@@ -8,14 +9,14 @@ import lombok.Data;
 
 @Data
 public class ExeConfig {
-    static public ExeConfig of(boolean recursive, boolean useCache) {
+    static public ExeConfig of(RecursiveDepthEnum recursiveDepth, boolean useCache) {
         ExeConfig config = new ExeConfig();
-        config.recursive = recursive;
+        config.recursiveDepth = recursiveDepth;
         config.useCache = useCache;
         return config;
     }
 
-    private boolean recursive;
+    private RecursiveDepthEnum recursiveDepth;
     private boolean useCache;
 
     private ExeConfig() {

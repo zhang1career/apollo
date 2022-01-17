@@ -4,6 +4,7 @@ import lab.zhang.apollo.bo.ComparableValuable;
 import lab.zhang.apollo.bo.Valuable;
 import lab.zhang.apollo.pojo.cofig.ExeConfig;
 import lab.zhang.apollo.pojo.context.ParamContext;
+import lab.zhang.apollo.pojo.enums.RecursiveDepthEnum;
 import lab.zhang.apollo.util.HashUtil;
 import lombok.Getter;
 import lombok.Setter;
@@ -37,11 +38,17 @@ public class Operation<R, V> implements ComparableValuable<R> {
 
     @Override
     public R getValue(ParamContext paramContext, ExeConfig exeConfig) {
-        if (!exeConfig.isRecursive()) {
-            return cache;
+        switch (exeConfig.getRecursiveDepth()) {
+            case NONE:
+                return exeConfig.isUseCache() ? cache : null;
+            case ONCE:
+                exeConfig.setRecursiveDepth(RecursiveDepthEnum.NONE);
+                return getCachedValue(paramContext, exeConfig);
+            case TO_THE_END:
+                return getCachedValue(paramContext, exeConfig);
+            default:
+                return null;
         }
-
-        return getCachedValue(paramContext, exeConfig);
     }
 
     private R getCachedValue(ParamContext paramContext, ExeConfig exeConfig) {

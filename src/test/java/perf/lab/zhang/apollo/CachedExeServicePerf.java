@@ -5,7 +5,7 @@
 //import com.github.noconnor.junitperf.JUnitPerfTestRequirement;
 //import com.github.noconnor.junitperf.reporting.providers.HtmlReportGenerator;
 //import lab.zhang.apollo.pojo.context.ParamContext;
-//import lab.zhang.apollo.service.exe.CachedExeService;
+//import lab.zhang.apollo.service.exe.ParallelExeService;
 //import lab.zhang.apollo.service.optim.IteratingOptimService;
 //import lab.zhang.apollo.pojo.context.CompileContext;
 //import lab.zhang.apollo.service.ExeService;
@@ -49,7 +49,7 @@
 //        SortedOperation<Integer, Integer> tion5 = SortedOperation.of(tor1, Lists.list(op0, tion4));
 //        CompileContext context = analyzer.optimize(tion5);
 //
-//        target = CachedExeService.of(context);
+//        target = ParallelExeService.of(context);
 //
 //        assertEquals(1, target.getValue(paramContext).intValue());
 //    }

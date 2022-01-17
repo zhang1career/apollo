@@ -10,7 +10,7 @@ import lab.zhang.apollo.pojo.operator.UnsortableOperator;
 import lab.zhang.apollo.pojo.operator.arithmetic.Addition;
 import lab.zhang.apollo.pojo.operator.arithmetic.Subtraction;
 import lab.zhang.apollo.service.ExeService;
-import lab.zhang.apollo.service.exe.CachedExeService;
+import lab.zhang.apollo.service.exe.ParallelExeService;
 import lab.zhang.apollo.service.optim.IteratingOptimService;
 import org.assertj.core.util.Lists;
 import org.junit.Before;
@@ -18,7 +18,7 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
-public class CachedExeServiceTest {
+public class ParallelExeServiceTest {
 
     @Before
     public void setUp() {
@@ -40,19 +40,19 @@ public class CachedExeServiceTest {
         SortedOperation<Integer, Integer> tion4 = SortedOperation.of(tor1, Lists.list(op0, tion3));
         SortedOperation<Integer, Integer> tion5 = SortedOperation.of(tor1, Lists.list(op0, tion4));
         CompileContext context1 = analyzer.optimize(tion5);
-        ExeService<Integer> exe1 = CachedExeService.of(context1);
+        ExeService<Integer> exe1 = ParallelExeService.of(context1);
         assertEquals(1, exe1.getValue(paramContext).intValue());
 
         UnsortableOperator<Integer, Integer> tor2 = Subtraction.of();
         UnsortedOperation<Integer, Integer> tion11 = UnsortedOperation.of(tor2, Lists.list(op0, op1));
         CompileContext context11 = analyzer.optimize(tion11);
-        ExeService<Integer> exe11 = CachedExeService.of(context11);
+        ExeService<Integer> exe11 = ParallelExeService.of(context11);
         assertEquals(-1, exe11.getValue(paramContext).intValue());
 
 
         UnsortedOperation<Integer, Integer> tion12 = UnsortedOperation.of(tor2, Lists.list(op3, op2));
         CompileContext context12 = analyzer.optimize(tion12);
-        ExeService<Integer> exe12 = CachedExeService.of(context12);
+        ExeService<Integer> exe12 = ParallelExeService.of(context12);
         assertEquals(1, exe12.getValue(paramContext).intValue());
     }
 
@@ -72,9 +72,9 @@ public class CachedExeServiceTest {
         CompileContext context0 = analyzer.optimize(tion0);
         CompileContext context1 = analyzer.optimize(tion1);
         CompileContext context2 = analyzer.optimize(tion2);
-        ExeService<Integer> exe0 = CachedExeService.of(context0);
-        ExeService<Integer> exe1 = CachedExeService.of(context1);
-        ExeService<Integer> exe2 = CachedExeService.of(context2);
+        ExeService<Integer> exe0 = ParallelExeService.of(context0);
+        ExeService<Integer> exe1 = ParallelExeService.of(context1);
+        ExeService<Integer> exe2 = ParallelExeService.of(context2);
         assertEquals(1, exe0.getValue(paramContext).intValue());
         assertEquals(1, exe1.getValue(paramContext).intValue());
         assertEquals(2, exe2.getValue(paramContext).intValue());
@@ -95,7 +95,7 @@ public class CachedExeServiceTest {
         SortedOperation<Integer, Integer> tion50 = SortedOperation.of(tor, Lists.list(tion10, tion10, tion10, tion10, tion10));
         SortedOperation<Integer, Integer> tion250 = SortedOperation.of(tor, Lists.list(tion50, tion50, tion50, tion50, tion50));
         CompileContext context250 = analyzer.optimize(tion250);
-        ExeService<Integer> exe250 = CachedExeService.of(context250);
+        ExeService<Integer> exe250 = ParallelExeService.of(context250);
 
         long start = System.nanoTime();
         for (int i = 0; i < count; i++) {

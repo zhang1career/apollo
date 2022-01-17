@@ -7,7 +7,7 @@ import lab.zhang.apollo.pojo.Token;
 import lab.zhang.apollo.repo.StorableExpression;
 import lab.zhang.apollo.repo.StorableOperator;
 import lab.zhang.apollo.service.*;
-import lab.zhang.apollo.service.exe.CachedExeService;
+import lab.zhang.apollo.service.exe.ParallelExeService;
 import lab.zhang.apollo.service.lexer.BasicLexerService;
 import lab.zhang.apollo.service.optim.IteratingOptimService;
 import lab.zhang.apollo.util.CastUtil;
@@ -48,8 +48,8 @@ public class ApolloController {
         log.info("world");
         Operation<Object, Object> parsed = CastUtil.from(parseService.valuableOf(plannedToken));
         CompileContext compileContext = optimService.optimize(parsed);
-//        ExeService<Integer> exe = ConcurrentCachedExeService.of(compileContext);
-        ExeService<Object> exe = CachedExeService.of(compileContext);
+//        ExeService<Integer> exe = ConcurrentParallelExeService.of(compileContext);
+        ExeService<Object> exe = ParallelExeService.of(compileContext);
         return (R) exe.getValue(paramContext);
     }
 }

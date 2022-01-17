@@ -7,12 +7,12 @@ import lab.zhang.apollo.pojo.operation.SortedOperation;
 import lab.zhang.apollo.pojo.operator.SortableOperator;
 import lab.zhang.apollo.pojo.operator.arithmetic.Addition;
 import lab.zhang.apollo.service.ExeService;
-import lab.zhang.apollo.service.exe.ConcurrentCachedExeService;
+import lab.zhang.apollo.service.exe.ConcurrentParallelExeService;
 import lab.zhang.apollo.service.optim.IteratingOptimService;
 import org.assertj.core.util.Lists;
 import org.junit.Before;
 
-public class ConcurrentCachedExeServiceTest {
+public class ConcurrentParallelExeServiceTest {
 
     private ParamContext paramContext;
     private ExeService<Integer> target1;
@@ -34,13 +34,13 @@ public class ConcurrentCachedExeServiceTest {
         SortedOperation<Integer, Integer> tion5 = SortedOperation.of(tor1, Lists.list(op0, tion4));
         CompileContext context = analyzer.optimize(tion5);
 
-        target1 = ConcurrentCachedExeService.of(context);
-        target2 = ConcurrentCachedExeService.of(context);
+        target1 = ConcurrentParallelExeService.of(context);
+        target2 = ConcurrentParallelExeService.of(context);
     }
 
 //    @Test
 //    public void test_getValue() throws InterruptedException {
-//        try (AllInterleavings allInterleavings = new AllInterleavings("Test ConcurrentCachedExeService")) {
+//        try (AllInterleavings allInterleavings = new AllInterleavings("Test ConcurrentParallelExeService")) {
 //            while (allInterleavings.hasNext()) {
 //                Thread first = new Thread(() -> target1.getValue(paramContext));
 //                Thread second = new Thread(() -> target2.getValue(paramContext));

@@ -24,16 +24,16 @@ public class CompileContext {
 
     private Set<Operand<?, String>> requiredOperandSet;
 
-    private List<List<Valuable<?>>> primaryOperationList;
+    private List<List<Valuable<?>>> parallelOperationList;
 
     private List<Valuable<?>> complementaryValuableList;
 
-    private Operation<?, ?> originalOperationNode;
+    private Operation<?, ?> originalOperation;
 
     public CompileContext(int level) {
         this.level = level;
         this.requiredOperandSet = new HashSet<>();
-        this.primaryOperationList = new ArrayList<>();
+        this.parallelOperationList = new ArrayList<>();
         this.complementaryValuableList = new ArrayList<>();
     }
 
@@ -47,12 +47,12 @@ public class CompileContext {
     }
 
     public int getPrimaryOperationListSize() {
-        return primaryOperationList.size();
+        return parallelOperationList.size();
     }
 
     public List<Valuable<?>> getPrimaryOperationListOfLevel(int level) {
          enlargePrimaryOperationList(level);
-        return primaryOperationList.get(level);
+        return parallelOperationList.get(level);
     }
 
     public void requiredOperandSetAddAll(List<? extends Valuable<?>> valuableList) {
@@ -65,11 +65,11 @@ public class CompileContext {
     }
 
     private void enlargePrimaryOperationList(int level) {
-        if (primaryOperationList == null) {
-            primaryOperationList = new ArrayList<>();
+        if (parallelOperationList == null) {
+            parallelOperationList = new ArrayList<>();
         }
-        while (primaryOperationList.size() < level + 1) {
-            primaryOperationList.add(new ArrayList<>());
+        while (parallelOperationList.size() < level + 1) {
+            parallelOperationList.add(new ArrayList<>());
         }
     }
 }

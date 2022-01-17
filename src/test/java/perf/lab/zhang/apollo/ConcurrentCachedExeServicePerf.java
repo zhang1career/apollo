@@ -8,7 +8,7 @@
 //import lab.zhang.apollo.service.ExeService;
 //import lab.zhang.apollo.pojo.context.ParamContext;
 //import lab.zhang.apollo.service.optim.IteratingOptimService;
-//import lab.zhang.apollo.service.exe.ConcurrentCachedExeService;
+//import lab.zhang.apollo.service.exe.ConcurrentParallelExeService;
 //import lab.zhang.apollo.pojo.operand.instant.InstantInt;
 //import lab.zhang.apollo.pojo.operation.SortedOperation;
 //import lab.zhang.apollo.pojo.operator.SortableOperator;
@@ -49,7 +49,7 @@
 //        SortedOperation<Integer, Integer> tion5 = SortedOperation.of(tor1, Lists.list(op0, tion4));
 //        CompileContext context = analyzer.optimize(tion5);
 //
-//        target = ConcurrentCachedExeService.of(context);
+//        target = ConcurrentParallelExeService.of(context);
 //
 //        assertEquals(1, target.getValue(paramContext).intValue());
 //    }

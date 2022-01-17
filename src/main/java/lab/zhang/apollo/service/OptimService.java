@@ -16,7 +16,7 @@ import java.util.List;
 abstract public class OptimService {
     public CompileContext optimize(Operation<?, ?> root) {
         CompileContext compileContext = dfs(root);
-        compileContext.setOriginalOperationNode(root);
+        compileContext.setOriginalOperation(root);
         return compileContext;
     }
 

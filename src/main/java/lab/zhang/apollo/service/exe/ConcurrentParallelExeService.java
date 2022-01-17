@@ -1,8 +1,8 @@
 package lab.zhang.apollo.service.exe;
 
 import lab.zhang.apollo.bo.Valuable;
+import lab.zhang.apollo.pojo.cofig.instance.CachedExeConfig;
 import lab.zhang.apollo.pojo.context.CompileContext;
-import lab.zhang.apollo.pojo.context.ExeContext;
 import lab.zhang.apollo.pojo.context.ParamContext;
 import lab.zhang.apollo.util.CastUtil;
 import lombok.Getter;
@@ -16,14 +16,14 @@ import java.util.stream.Collectors;
 /**
  * @author zhangrj
  */
-public class ConcurrentCachedExeService<R> extends CachedExeService<R> {
+public class ConcurrentParallelExeService<R> extends ParallelExeService<R> {
     @NotNull
     @Contract(value = "_ -> new", pure = true)
-    static public <R> ConcurrentCachedExeService<R> of(CompileContext compileContext) {
-        return new ConcurrentCachedExeService<>(compileContext);
+    static public <R> ConcurrentParallelExeService<R> of(CompileContext compileContext) {
+        return new ConcurrentParallelExeService<>(compileContext);
     }
 
-    private ConcurrentCachedExeService(CompileContext compileContext) {
+    private ConcurrentParallelExeService(CompileContext compileContext) {
         super(compileContext);
     }
 
@@ -31,12 +31,10 @@ public class ConcurrentCachedExeService<R> extends CachedExeService<R> {
     protected R doValue(ParamContext paramContext) {
         ValueSink<Object> valueSink = new ValueSink<>();
 
-        for (List<Valuable<?>> valuableList : compileContext.getPrimaryOperationList()) {
+        for (List<Valuable<?>> valuableList : compileContext.getParallelOperationList()) {
             List<Object> resultList = valuableList
                     .parallelStream()
-                    .map((operation) -> {
-                        ExeContext exeContext = new ExeContext(operation, paramContext);
-                        return CACHE.getUnchecked(exeContext);})
+                    .map((operation) -> operation.getValue(paramContext, CachedExeConfig.of()))
                     .collect(Collectors.toList());
             resultList.forEach(valueSink);
         }
