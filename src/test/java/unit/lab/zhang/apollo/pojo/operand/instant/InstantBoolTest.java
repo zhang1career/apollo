@@ -6,7 +6,9 @@ import lab.zhang.apollo.pojo.context.ParamContext;
 import lab.zhang.apollo.pojo.operand.instant.InstantBool;
 import lab.zhang.apollo.pojo.operand.variable.VariableBool;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 
 import java.util.concurrent.ExecutionException;
 
@@ -24,26 +26,27 @@ public class InstantBoolTest {
 
     private ExeConfig exeConfig;
 
+    @Rule
+    public ExpectedException ee = ExpectedException.none();
+
     @Before
     public void setUp() throws ExecutionException {
         paramContext = new ParamContext();
-
         paramContext.putValue("true", true);
+        paramContext.putValue("false", false);
+
         t = VariableBool.of("true");
-
-        paramContext.putValue("false", true);
         f = VariableBool.of("false");
-
-        bool00 = InstantBool.of(true);
-        bool01 = InstantBool.of(true);
-        bool10 = InstantBool.of(false);
-        bool11 = InstantBool.of(false);
 
         exeConfig = DummyExeConfig.of();
     }
 
     @Test
-    public void test_getValue() {
+    public void test_getValue() throws ExecutionException {
+        bool00 = InstantBool.of(true);
+        bool01 = InstantBool.of(true);
+        bool10 = InstantBool.of(false);
+        bool11 = InstantBool.of(false);
         assertEquals(true, bool00.getValue(paramContext, exeConfig));
         assertEquals(true, bool01.getValue(paramContext, exeConfig));
         assertEquals(false, bool10.getValue(paramContext, exeConfig));
@@ -51,7 +54,45 @@ public class InstantBoolTest {
     }
 
     @Test
-    public void test_compareTo_notEqual() {
+    public void test_getValue_wrong_type_string() throws ExecutionException {
+        bool00 = InstantBool.of("true");
+        bool01 = InstantBool.of("false");
+        assertEquals(true, bool00.getValue(paramContext, exeConfig));
+        assertEquals(false, bool01.getValue(paramContext, exeConfig));
+    }
+
+    @Test
+    public void test_getValue_wrong_type_int() throws ExecutionException {
+        bool00 = InstantBool.of(1);
+        bool01 = InstantBool.of(0);
+        assertEquals(true, bool00.getValue(paramContext, exeConfig));
+        assertEquals(false, bool01.getValue(paramContext, exeConfig));
+    }
+
+    @Test
+    public void test_getValue_wrong_type_int_string() throws ExecutionException {
+        bool00 = InstantBool.of("1");
+        bool01 = InstantBool.of("0");
+        assertEquals(false, bool00.getValue(paramContext, exeConfig));
+        assertEquals(false, bool01.getValue(paramContext, exeConfig));
+    }
+
+    @Test
+    public void test_getValue_wrong_type_object() throws ExecutionException {
+        ee.expect(RuntimeException.class);
+        ee.expectMessage("param type is wrong");
+
+        bool00 = InstantBool.of(new Object());
+        assertEquals(true, bool00.getValue(paramContext, exeConfig));
+    }
+
+    @Test
+    public void test_compareTo_notEqual() throws ExecutionException {
+        bool00 = InstantBool.of(true);
+        bool01 = InstantBool.of(true);
+        bool10 = InstantBool.of(false);
+        bool11 = InstantBool.of(false);
+
         assertNotEquals(0, bool00.compareTo(t));
         assertNotEquals(0, bool01.compareTo(t));
         assertNotEquals(0, bool10.compareTo(t));
@@ -64,13 +105,23 @@ public class InstantBoolTest {
     }
 
     @Test
-    public void test_compareTo_equal() {
+    public void test_compareTo_equal() throws ExecutionException {
+        bool00 = InstantBool.of(true);
+        bool01 = InstantBool.of(true);
+        bool10 = InstantBool.of(false);
+        bool11 = InstantBool.of(false);
+
         assertEquals(0, bool00.compareTo(bool01));
         assertEquals(0, bool10.compareTo(bool11));
     }
 
     @Test
-    public void test_compareTo_instantGreaterThanVariable() {
+    public void test_compareTo_instantGreaterThanVariable() throws ExecutionException {
+        bool00 = InstantBool.of(true);
+        bool01 = InstantBool.of(true);
+        bool10 = InstantBool.of(false);
+        bool11 = InstantBool.of(false);
+
         assertEquals(1, bool00.compareTo(t));
         assertEquals(1, bool01.compareTo(t));
         assertEquals(1, bool10.compareTo(f));

@@ -6,7 +6,9 @@ import lab.zhang.apollo.pojo.context.ParamContext;
 import lab.zhang.apollo.pojo.operand.instant.InstantBool;
 import lab.zhang.apollo.pojo.operand.variable.VariableBool;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 
 import java.util.concurrent.ExecutionException;
 
@@ -26,15 +28,16 @@ public class VariableBoolTest {
 
     private ExeConfig exeConfig;
 
+    @Rule
+    public ExpectedException ee = ExpectedException.none();
+
     @Before
     public void setUp() throws ExecutionException {
         paramContext = new ParamContext();
 
-        paramContext.putValue("true", true);
         t0 = VariableBool.of("true");
         t1 = VariableBool.of("true");
 
-        paramContext.putValue("false", false);
         f0 = VariableBool.of("false");
         f1 = VariableBool.of("false");
 
@@ -48,8 +51,43 @@ public class VariableBoolTest {
 
     @Test
     public void test_getValue() {
+        paramContext.putValue("true", true);
+        paramContext.putValue("false", false);
         assertEquals(true, t0.getValue(paramContext, exeConfig));
         assertEquals(false, f0.getValue(paramContext, exeConfig));
+    }
+
+    @Test
+    public void test_getValue_wrong_type_string() {
+        paramContext.putValue("true", "true");
+        paramContext.putValue("false", "false");
+        assertEquals(true, t0.getValue(paramContext, exeConfig));
+        assertEquals(false, f0.getValue(paramContext, exeConfig));
+    }
+
+    @Test
+    public void test_getValue_wrong_type_int() {
+        paramContext.putValue("true", 1);
+        paramContext.putValue("false", 0);
+        assertEquals(true, t0.getValue(paramContext, exeConfig));
+        assertEquals(false, f0.getValue(paramContext, exeConfig));
+    }
+
+    @Test
+    public void test_getValue_wrong_type_int_string() {
+        paramContext.putValue("true", "1");
+        paramContext.putValue("false", "0");
+        assertEquals(false, t0.getValue(paramContext, exeConfig));
+        assertEquals(false, f0.getValue(paramContext, exeConfig));
+    }
+
+    @Test
+    public void test_getValue_wrong_type_object() {
+        ee.expect(RuntimeException.class);
+        ee.expectMessage("param type is wrong");
+
+        paramContext.putValue("true", new Object());
+        assertEquals(true, t0.getValue(paramContext, exeConfig));
     }
 
     @Test
