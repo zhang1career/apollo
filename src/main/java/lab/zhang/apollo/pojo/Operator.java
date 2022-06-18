@@ -27,7 +27,8 @@ abstract public class Operator<R, V> implements Calculable<R, V> {
     @Override
     public R calc(List<? extends Valuable<V>> operands, ParamContext paramContext, ExeConfig exeConfig) {
         check(operands, paramContext);
-        return doCalc(operands, paramContext, exeConfig);
+        ExeConfig subExeConfig = ExeConfig.dec(exeConfig);
+        return doCalc(operands, paramContext, subExeConfig);
     }
 
     protected void check(List<? extends Valuable<?>> operands, ParamContext paramContext) {

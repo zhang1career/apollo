@@ -1,15 +1,16 @@
 package lab.zhang.apollo.controller;
 
-import lab.zhang.apollo.pojo.context.CompileContext;
 import lab.zhang.apollo.pojo.Operation;
-import lab.zhang.apollo.pojo.context.ParamContext;
 import lab.zhang.apollo.pojo.Token;
+import lab.zhang.apollo.pojo.context.CompileContext;
+import lab.zhang.apollo.pojo.context.ParamContext;
 import lab.zhang.apollo.repo.StorableExpression;
 import lab.zhang.apollo.repo.StorableOperator;
 import lab.zhang.apollo.service.*;
 import lab.zhang.apollo.service.exe.ParallelExeService;
 import lab.zhang.apollo.service.lexer.BasicLexerService;
-import lab.zhang.apollo.service.optim.IteratingOptimService;
+import lab.zhang.apollo.service.optim.impl.IteratingOptimServiceImpl;
+import lab.zhang.apollo.service.optim.OptimService;
 import lab.zhang.apollo.util.CastUtil;
 import lombok.extern.slf4j.Slf4j;
 
@@ -28,7 +29,7 @@ public class ApolloController {
     public ApolloController(StorableOperator storableOperator, StorableExpression storableExpression) {
         lexerService = new BasicLexerService();
         parseService = new ParseService(storableOperator);
-        optimService = new IteratingOptimService();
+        optimService = new IteratingOptimServiceImpl();
         planService = new PlanService(storableExpression);
     }
 

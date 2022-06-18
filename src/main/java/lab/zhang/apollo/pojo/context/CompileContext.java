@@ -51,7 +51,7 @@ public class CompileContext {
     }
 
     public List<Valuable<?>> getPrimaryOperationListOfLevel(int level) {
-         enlargePrimaryOperationList(level);
+        enlargePrimaryOperationList(level);
         return parallelOperationList.get(level);
     }
 

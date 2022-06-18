@@ -2,10 +2,13 @@ package lab.zhang.apollo.pojo;
 
 import lab.zhang.apollo.bo.ComparableValuable;
 import lab.zhang.apollo.bo.Valuable;
+import lab.zhang.apollo.exception.TreeBuildException;
+import lab.zhang.apollo.pojo.cache.CacheSession;
 import lab.zhang.apollo.pojo.cofig.ExeConfig;
 import lab.zhang.apollo.pojo.context.ParamContext;
-import lab.zhang.apollo.pojo.enums.RecursiveDepthEnum;
+import lab.zhang.apollo.pojo.enums.RouteDepthEnum;
 import lab.zhang.apollo.util.HashUtil;
+import lab.zhang.zhangtool.idgen.Idgen;
 import lombok.Getter;
 import lombok.Setter;
 import org.jetbrains.annotations.NotNull;
@@ -19,47 +22,47 @@ import java.util.List;
 @Setter
 public class Operation<R, V> implements ComparableValuable<R> {
 
-    private R cache;
-
     protected Operator<R, V> operator;
 
     protected List<? extends Valuable<V>> children;
 
+    private CacheSession<R> cacheSession;
+
+    private Long id;
 
     static private final int HASH_SALT = 0x96A55A69;
-    boolean cacheOn = false;
 
 
-    protected Operation(Operator<R, V> operator, List<? extends Valuable<V>> children) {
+    protected Operation(Operator<R, V> operator, List<? extends Valuable<V>> children, CacheSession<R> cacheSession, Idgen idgen) {
         this.operator = operator;
         this.children = children;
-        cache = null;
+        this.cacheSession = cacheSession;
+
+        for (int retry = 3; retry > 0; retry--) {
+            this.id = idgen.genId();
+            if (this.id != null) {
+                break;
+            }
+        }
+        if (this.id == null) {
+            throw new TreeBuildException("Fail to generate operation id.");
+        }
     }
 
     @Override
     public R getValue(ParamContext paramContext, ExeConfig exeConfig) {
-        switch (exeConfig.getRecursiveDepth()) {
-            case NONE:
-                return exeConfig.isUseCache() ? cache : null;
-            case ONCE:
-                exeConfig.setRecursiveDepth(RecursiveDepthEnum.NONE);
-                return getCachedValue(paramContext, exeConfig);
-            case TO_THE_END:
-                return getCachedValue(paramContext, exeConfig);
-            default:
-                return null;
-        }
-    }
-
-    private R getCachedValue(ParamContext paramContext, ExeConfig exeConfig) {
-        if (!exeConfig.isUseCache()) {
-            return operator.calc(children, paramContext, exeConfig);
+        if (cacheSession.isCached(id)) {
+            return cacheSession.get(id);
         }
 
-        if (cache == null) {
-            cache = operator.calc(children, paramContext, exeConfig);
+        // if no-depth recurse without cached, return null
+        if (exeConfig.getRouteDepth() == RouteDepthEnum.NONE) {
+            return null;
         }
-        return cache;
+
+        R result = operator.calc(children, paramContext, exeConfig);
+        cacheSession.put(id, result);
+        return cacheSession.get(id);
     }
 
     public boolean isLeaf() {

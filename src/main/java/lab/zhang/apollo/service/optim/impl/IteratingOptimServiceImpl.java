@@ -1,8 +1,7 @@
-package lab.zhang.apollo.service.optim;
+package lab.zhang.apollo.service.optim.impl;
 
 import lab.zhang.apollo.pojo.context.CompileContext;
 import lab.zhang.apollo.pojo.Operation;
-import lab.zhang.apollo.service.OptimService;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
@@ -10,9 +9,9 @@ import java.util.List;
 /**
  * @author zhangrj
  */
-public class StagingOptimService extends OptimService {
+public class IteratingOptimServiceImpl extends OptimServiceImpl {
 
-    public StagingOptimService() {
+    public IteratingOptimServiceImpl() {
         super();
     }
 

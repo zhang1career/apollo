@@ -11,7 +11,7 @@ import lab.zhang.apollo.pojo.operator.arithmetic.Addition;
 import lab.zhang.apollo.pojo.operator.arithmetic.Subtraction;
 import lab.zhang.apollo.service.ExeService;
 import lab.zhang.apollo.service.exe.RecursiveExeService;
-import lab.zhang.apollo.service.optim.IteratingOptimService;
+import lab.zhang.apollo.service.optim.impl.IteratingOptimServiceImpl;
 import org.assertj.core.util.Lists;
 import org.junit.Before;
 import org.junit.Test;
@@ -31,7 +31,7 @@ public class RecursiveExeServiceTest {
         InstantInt op2 = InstantInt.of(2);
         InstantInt op3 = InstantInt.of(3);
         ParamContext paramContext = new ParamContext();
-        IteratingOptimService analyzer = new IteratingOptimService();
+        IteratingOptimServiceImpl analyzer = new IteratingOptimServiceImpl();
 
         SortableOperator<Integer, Integer> tor1 = Addition.of();
         SortedOperation<Integer, Integer> tion1 = SortedOperation.of(tor1, Lists.list(op0, op1));
@@ -62,7 +62,7 @@ public class RecursiveExeServiceTest {
         InstantInt op1 = InstantInt.of(1);
         InstantInt op2 = InstantInt.of(2);
         ParamContext paramContext = new ParamContext();
-        IteratingOptimService analyzer = new IteratingOptimService();
+        IteratingOptimServiceImpl analyzer = new IteratingOptimServiceImpl();
 
         SortableOperator<Integer, Integer> tor1 = Addition.of();
         SortedOperation<Integer, Integer> tion0 = SortedOperation.of(tor1, Lists.list(op0, op1));
@@ -87,7 +87,7 @@ public class RecursiveExeServiceTest {
 
         InstantInt op1 = InstantInt.of(1);
         ParamContext paramContext = new ParamContext();
-        IteratingOptimService analyzer = new IteratingOptimService();
+        IteratingOptimServiceImpl analyzer = new IteratingOptimServiceImpl();
 
         SortableOperator<Integer, Integer> tor = Addition.of();
         SortedOperation<Integer, Integer> tion2 = SortedOperation.of(tor, Lists.list(op1, op1));

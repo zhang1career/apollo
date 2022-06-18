@@ -38,10 +38,7 @@ public class VariableInt extends Variable<Integer> {
 
     @Override
     public Integer getValue(ParamContext paramContext, ExeConfig exeConfig) {
-        Object obj = reader.read(value, paramContext);
-        if (obj == null) {
-            return null;
-        }
-        return parseInteger(obj);
+        Integer result = super.getValue(paramContext, exeConfig);
+        return parseInteger(result);
     }
 }

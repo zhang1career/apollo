@@ -38,10 +38,7 @@ public class VariableBool extends Variable<Boolean> {
 
     @Override
     public Boolean getValue(ParamContext paramContext, ExeConfig exeConfig) {
-        Object obj = reader.read(value, paramContext);
-        if (obj == null) {
-            return null;
-        }
-        return parseBoolean(obj);
+        Boolean result = super.getValue(paramContext, exeConfig);
+        return parseBoolean(result);
     }
 }

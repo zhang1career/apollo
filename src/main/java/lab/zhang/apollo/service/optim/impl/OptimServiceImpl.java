@@ -1,8 +1,9 @@
-package lab.zhang.apollo.service;
+package lab.zhang.apollo.service.optim.impl;
 
 import lab.zhang.apollo.bo.Valuable;
 import lab.zhang.apollo.pojo.context.CompileContext;
 import lab.zhang.apollo.pojo.Operation;
+import lab.zhang.apollo.service.optim.OptimService;
 import lombok.NoArgsConstructor;
 import org.jetbrains.annotations.NotNull;
 
@@ -13,7 +14,8 @@ import java.util.List;
  * @author zhangrj
  */
 @NoArgsConstructor
-abstract public class OptimService {
+abstract public class OptimServiceImpl implements OptimService {
+    @Override
     public CompileContext optimize(Operation<?, ?> root) {
         CompileContext compileContext = dfs(root);
         compileContext.setOriginalOperation(root);

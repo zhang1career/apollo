@@ -38,10 +38,7 @@ public class VariableStr extends Variable<String> {
 
     @Override
     public String getValue(ParamContext paramContext, ExeConfig exeConfig) {
-        Object obj = reader.read(value, paramContext);
-        if (obj == null) {
-            return null;
-        }
-        return parseString(obj);
+        String result = super.getValue(paramContext, exeConfig);
+        return parseString(result);
     }
 }

@@ -5,7 +5,7 @@ import lab.zhang.apollo.pojo.context.ParamContext;
 import lab.zhang.apollo.pojo.operation.SortedOperation;
 import lab.zhang.apollo.pojo.operation.UnsortedOperation;
 import lab.zhang.apollo.service.exe.ConcurrentParallelExeService;
-import lab.zhang.apollo.service.optim.IteratingOptimService;
+import lab.zhang.apollo.service.optim.impl.IteratingOptimServiceImpl;
 import lab.zhang.apollo.service.ExeService;
 import lab.zhang.apollo.pojo.operand.instant.InstantInt;
 import lab.zhang.apollo.pojo.operator.SortableOperator;
@@ -31,7 +31,7 @@ public class ConcurrentParallelExeServiceTest {
         InstantInt op2 = InstantInt.of(2);
         InstantInt op3 = InstantInt.of(3);
         ParamContext paramContext = new ParamContext();
-        IteratingOptimService analyzer = new IteratingOptimService();
+        IteratingOptimServiceImpl analyzer = new IteratingOptimServiceImpl();
 
         SortableOperator<Integer, Integer> tor1 = Addition.of();
         SortedOperation<Integer, Integer> tion1 = SortedOperation.of(tor1, Lists.list(op0, op1));
@@ -63,7 +63,7 @@ public class ConcurrentParallelExeServiceTest {
 
         InstantInt op1 = InstantInt.of(1);
         ParamContext paramContext = new ParamContext();
-        IteratingOptimService analyzer = new IteratingOptimService();
+        IteratingOptimServiceImpl analyzer = new IteratingOptimServiceImpl();
 
         SortableOperator<Integer, Integer> tor = Addition.of();
         SortedOperation<Integer, Integer> tion2 = SortedOperation.of(tor, Lists.list(op1, op1));

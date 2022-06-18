@@ -4,7 +4,7 @@ import lab.zhang.apollo.pojo.context.ParamContext;
 import lab.zhang.apollo.pojo.operation.SortedOperation;
 import lab.zhang.apollo.pojo.operation.UnsortedOperation;
 import lab.zhang.apollo.service.exe.ParallelExeService;
-import lab.zhang.apollo.service.optim.IteratingOptimService;
+import lab.zhang.apollo.service.optim.impl.IteratingOptimServiceImpl;
 import lab.zhang.apollo.pojo.context.CompileContext;
 import lab.zhang.apollo.pojo.operand.instant.InstantInt;
 import lab.zhang.apollo.pojo.operand.variable.VariableInt;
@@ -17,8 +17,8 @@ import org.junit.*;
 
 import static org.junit.Assert.*;
 
-public class IteratingOptimServiceTest {
-    private final IteratingOptimService analyzer = new IteratingOptimService();
+public class IteratingOptimServiceImplTest {
+    private final IteratingOptimServiceImpl analyzer = new IteratingOptimServiceImpl();
 
     private ParamContext paramContext;
 

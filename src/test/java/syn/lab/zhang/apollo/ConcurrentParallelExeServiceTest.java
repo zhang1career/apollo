@@ -8,7 +8,7 @@ import lab.zhang.apollo.pojo.operator.SortableOperator;
 import lab.zhang.apollo.pojo.operator.arithmetic.Addition;
 import lab.zhang.apollo.service.ExeService;
 import lab.zhang.apollo.service.exe.ConcurrentParallelExeService;
-import lab.zhang.apollo.service.optim.IteratingOptimService;
+import lab.zhang.apollo.service.optim.impl.IteratingOptimServiceImpl;
 import org.assertj.core.util.Lists;
 import org.junit.Before;
 
@@ -21,7 +21,7 @@ public class ConcurrentParallelExeServiceTest {
     @Before
     public void setUp() throws Exception {
         paramContext = new ParamContext();
-        IteratingOptimService analyzer = new IteratingOptimService();
+        IteratingOptimServiceImpl analyzer = new IteratingOptimServiceImpl();
 
         InstantInt op0 = InstantInt.of(0);
         InstantInt op1 = InstantInt.of(1);

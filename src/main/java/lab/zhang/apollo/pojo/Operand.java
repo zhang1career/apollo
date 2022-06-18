@@ -2,8 +2,10 @@ package lab.zhang.apollo.pojo;
 
 import lab.zhang.apollo.bo.ComparableValuable;
 import lab.zhang.apollo.bo.Readable;
+import lab.zhang.apollo.pojo.cache.CacheSession;
 import lab.zhang.apollo.pojo.cofig.ExeConfig;
 import lab.zhang.apollo.pojo.context.ParamContext;
+import lab.zhang.apollo.pojo.enums.RouteDepthEnum;
 import lab.zhang.apollo.util.*;
 import lombok.Data;
 import org.jetbrains.annotations.NotNull;
@@ -72,6 +74,9 @@ abstract public class Operand<V, N> implements ComparableValuable<V> {
 
     protected Readable<V, N> reader;
 
+    private CacheSession<V> cacheSession;
+
+    private Long id;
 
     public Operand(ApolloType type, N value, Readable<V, N> reader) {
         this.type = type;
@@ -82,7 +87,18 @@ abstract public class Operand<V, N> implements ComparableValuable<V> {
 
     @Override
     public V getValue(ParamContext paramContext, ExeConfig exeConfig) {
-        return reader.read(value, paramContext);
+        if (cacheSession.isCached(id)) {
+            return cacheSession.get(id);
+        }
+
+        // if no-depth recurse without cached, return null
+        if (exeConfig.getRouteDepth() == RouteDepthEnum.NONE) {
+            return null;
+        }
+
+        V result = reader.read(value, paramContext);
+        cacheSession.put(id, result);
+        return cacheSession.get(id);
     }
 
     @Override

@@ -40,10 +40,7 @@ public class VariableMap extends Variable<Map<String, Object>> {
 
     @Override
     public Map<String, Object> getValue(ParamContext paramContext, ExeConfig exeConfig) {
-        Object obj = reader.read(value, paramContext);
-        if (obj == null) {
-            return null;
-        }
-        return parseMap(obj);
+        Map<String, Object> result = super.getValue(paramContext, exeConfig);
+        return parseMap(result);
     }
 }

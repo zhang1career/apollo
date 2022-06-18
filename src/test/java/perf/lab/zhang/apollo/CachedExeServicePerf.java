@@ -6,7 +6,7 @@
 //import com.github.noconnor.junitperf.reporting.providers.HtmlReportGenerator;
 //import lab.zhang.apollo.pojo.context.ParamContext;
 //import lab.zhang.apollo.service.exe.ParallelExeService;
-//import lab.zhang.apollo.service.optim.IteratingOptimService;
+//import lab.zhang.apollo.service.optim.impl.IteratingOptimServiceImpl;
 //import lab.zhang.apollo.pojo.context.CompileContext;
 //import lab.zhang.apollo.service.ExeService;
 //import lab.zhang.apollo.pojo.operand.instant.InstantInt;
@@ -36,7 +36,7 @@
 //    @JUnitPerfTestRequirement(percentiles = "90:7, 95:7, 98:7, 99:8", executionsPerSec = 4_000, allowedErrorPercentage = 0.000_000_1f)
 //    public void test_getValue() throws Exception {
 //        paramContext = new ParamContext();
-//        IteratingOptimService analyzer = new IteratingOptimService();
+//        IteratingOptimServiceImpl analyzer = new IteratingOptimServiceImpl();
 //
 //        InstantInt op0 = InstantInt.of(0);
 //        InstantInt op1 = InstantInt.of(1);

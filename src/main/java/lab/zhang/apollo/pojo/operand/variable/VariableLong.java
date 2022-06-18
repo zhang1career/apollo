@@ -38,10 +38,7 @@ public class VariableLong extends Variable<Long> {
 
     @Override
     public Long getValue(ParamContext paramContext, ExeConfig exeConfig) {
-        Object obj = reader.read(value, paramContext);
-        if (obj == null) {
-            return null;
-        }
-        return parseLong(obj);
+        Long result = super.getValue(paramContext, exeConfig);
+        return parseLong(result);
     }
 }
